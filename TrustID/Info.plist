@@ -20,6 +20,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NFCReaderUsageDescription</key>
+	<string>Ready to use NFC</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>We need your permission to run Blueetooth on the background in order to connect to our Central. Don&apos;t worry it&apos;s low energy which means that consumptions is almost zero.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>We need your permission to run Blueetooth on the background in order to connect to our Central. Don&apos;t worry it&apos;s low energy which means that consumptions is almost zero.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -53,6 +59,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+	<array>
+		<string>A0000002471001</string>
+		<string>00000000000000</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>TrustID uses camera to detect mrz</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

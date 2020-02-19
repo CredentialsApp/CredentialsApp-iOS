@@ -3,27 +3,91 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9011DD0923AAA3480085D7BE /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9011DD0823AAA3480085D7BE /* SignUpViewController.swift */; };
+		901A86AE23B176B300DF1A9A /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901A86AD23B176B300DF1A9A /* AlertService.swift */; };
+		901A86B223B17F2E00DF1A9A /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901A86B123B17F2E00DF1A9A /* CryptoService.swift */; };
+		901A86B523B1802E00DF1A9A /* CryptorECC in Frameworks */ = {isa = PBXBuildFile; productRef = 901A86B423B1802E00DF1A9A /* CryptorECC */; };
+		901A86B823B1834200DF1A9A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901A86B723B1834200DF1A9A /* HomeViewController.swift */; };
+		901A86BA23B187AF00DF1A9A /* STDIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901A86B923B187AF00DF1A9A /* STDIdentifier.swift */; };
+		901A86BD23B188E400DF1A9A /* IdentifierTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901A86BC23B188E400DF1A9A /* IdentifierTableViewCell.swift */; };
+		901A86C023B18B6E00DF1A9A /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901A86BF23B18B6E00DF1A9A /* CredentialsViewController.swift */; };
+		9020B44723DD781F00B22E68 /* PassportDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9020B44623DD781F00B22E68 /* PassportDetails.swift */; };
+		907592F023DEEBC800867B3D /* MRZScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907592EF23DEEBC800867B3D /* MRZScannerViewController.swift */; };
+		908B0CA723BCEBDF00906FD1 /* BluetoothServiceConfigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CA623BCEBDF00906FD1 /* BluetoothServiceConfigration.swift */; };
+		908B0CA923BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CA823BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift */; };
+		908B0CAB23BCF7E800906FD1 /* CredentialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CAA23BCF7E800906FD1 /* CredentialService.swift */; };
+		908B0CAE23BCFB5F00906FD1 /* CredentialEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CAD23BCFB5F00906FD1 /* CredentialEnums.swift */; };
+		90C7377D23AAAEE200801C3E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7377C23AAAEE200801C3E /* User.swift */; };
+		90C7377F23AAAFB800801C3E /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7377E23AAAFB800801C3E /* UserService.swift */; };
+		90C7378223AAB57600801C3E /* PincodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7378123AAB57600801C3E /* PincodeViewController.swift */; };
+		90C7378423AAB6DE00801C3E /* UserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7378323AAB6DE00801C3E /* UserDelegate.swift */; };
+		90DB58C323AA97720013A84E /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DB58C223AA97720013A84E /* Slide.swift */; };
+		90DB58C523AA977D0013A84E /* Slide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90DB58C423AA977D0013A84E /* Slide.xib */; };
+		90E0737423B5CDCC00420E2E /* BluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E0737323B5CDCC00420E2E /* BluetoothViewController.swift */; };
+		90E0737723B5D29F00420E2E /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E0737623B5D29F00420E2E /* BluetoothService.swift */; };
+		90E0737923B5DAE700420E2E /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E0737823B5DAE700420E2E /* Credential.swift */; };
+		90E0737B23BA721F00420E2E /* CredentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E0737A23BA721F00420E2E /* CredentialTableViewCell.swift */; };
+		90F7DF8623D9A80E00F75569 /* NFCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F7DF8523D9A80E00F75569 /* NFCService.swift */; };
+		90F7DF8923D9AA6F00F75569 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7DF8823D9AA6F00F75569 /* ExternalAccessory.framework */; };
+		90F7DF8B23D9AA9400F75569 /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7DF8A23D9AA9400F75569 /* HomeKit.framework */; };
+		90F7DF8D23D9AAED00F75569 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7DF8C23D9AAED00F75569 /* HealthKit.framework */; };
+		90F7DF9123D9B0AA00F75569 /* TrustTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F7DF8F23D9B0AA00F75569 /* TrustTextField.swift */; };
+		90F7DF9223D9B0AA00F75569 /* TrustButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F7DF9023D9B0AA00F75569 /* TrustButton.swift */; };
 		90FD087D23AA8D3A008A70D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD087C23AA8D3A008A70D2 /* AppDelegate.swift */; };
 		90FD087F23AA8D3A008A70D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD087E23AA8D3A008A70D2 /* SceneDelegate.swift */; };
-		90FD088123AA8D3A008A70D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD088023AA8D3A008A70D2 /* ViewController.swift */; };
+		90FD088123AA8D3A008A70D2 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FD088023AA8D3A008A70D2 /* WalkthroughViewController.swift */; };
 		90FD088423AA8D3A008A70D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90FD088223AA8D3A008A70D2 /* Main.storyboard */; };
 		90FD088623AA8D3C008A70D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90FD088523AA8D3C008A70D2 /* Assets.xcassets */; };
 		90FD088923AA8D3C008A70D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90FD088723AA8D3C008A70D2 /* LaunchScreen.storyboard */; };
+		B9AE67530FABC2DA762CAFE5 /* Pods_TrustID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 293FDF8FE41879E12155EFD5 /* Pods_TrustID.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		293FDF8FE41879E12155EFD5 /* Pods_TrustID.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustID.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		832E9E79F2080F65D3C5195B /* Pods-TrustID.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrustID.debug.xcconfig"; path = "Target Support Files/Pods-TrustID/Pods-TrustID.debug.xcconfig"; sourceTree = "<group>"; };
+		9011DD0823AAA3480085D7BE /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		901A86AD23B176B300DF1A9A /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
+		901A86B123B17F2E00DF1A9A /* CryptoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoService.swift; sourceTree = "<group>"; };
+		901A86B723B1834200DF1A9A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		901A86B923B187AF00DF1A9A /* STDIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STDIdentifier.swift; sourceTree = "<group>"; };
+		901A86BC23B188E400DF1A9A /* IdentifierTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierTableViewCell.swift; sourceTree = "<group>"; };
+		901A86BF23B18B6E00DF1A9A /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
+		9020B44623DD781F00B22E68 /* PassportDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportDetails.swift; sourceTree = "<group>"; };
+		907592EF23DEEBC800867B3D /* MRZScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRZScannerViewController.swift; sourceTree = "<group>"; };
+		908B0CA623BCEBDF00906FD1 /* BluetoothServiceConfigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServiceConfigration.swift; sourceTree = "<group>"; };
+		908B0CA823BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewControllerConfigration.swift; sourceTree = "<group>"; };
+		908B0CAA23BCF7E800906FD1 /* CredentialService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialService.swift; sourceTree = "<group>"; };
+		908B0CAD23BCFB5F00906FD1 /* CredentialEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialEnums.swift; sourceTree = "<group>"; };
+		90C7377C23AAAEE200801C3E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		90C7377E23AAAFB800801C3E /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		90C7378123AAB57600801C3E /* PincodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeViewController.swift; sourceTree = "<group>"; };
+		90C7378323AAB6DE00801C3E /* UserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDelegate.swift; sourceTree = "<group>"; };
+		90DB58C223AA97720013A84E /* Slide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
+		90DB58C423AA977D0013A84E /* Slide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Slide.xib; sourceTree = "<group>"; };
+		90E0737323B5CDCC00420E2E /* BluetoothViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewController.swift; sourceTree = "<group>"; };
+		90E0737623B5D29F00420E2E /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
+		90E0737823B5DAE700420E2E /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
+		90E0737A23BA721F00420E2E /* CredentialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialTableViewCell.swift; sourceTree = "<group>"; };
+		90F7DF8523D9A80E00F75569 /* NFCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCService.swift; sourceTree = "<group>"; };
+		90F7DF8723D9A9F700F75569 /* TrustID.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrustID.entitlements; sourceTree = "<group>"; };
+		90F7DF8823D9AA6F00F75569 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		90F7DF8A23D9AA9400F75569 /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
+		90F7DF8C23D9AAED00F75569 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		90F7DF8F23D9B0AA00F75569 /* TrustTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrustTextField.swift; sourceTree = "<group>"; };
+		90F7DF9023D9B0AA00F75569 /* TrustButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrustButton.swift; sourceTree = "<group>"; };
 		90FD087923AA8D3A008A70D2 /* TrustID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrustID.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90FD087C23AA8D3A008A70D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90FD087E23AA8D3A008A70D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		90FD088023AA8D3A008A70D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		90FD088023AA8D3A008A70D2 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		90FD088323AA8D3A008A70D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90FD088523AA8D3C008A70D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90FD088823AA8D3C008A70D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90FD088A23AA8D3C008A70D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F00656AA2615B81F78ABB53D /* Pods-TrustID.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrustID.release.xcconfig"; path = "Target Support Files/Pods-TrustID/Pods-TrustID.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +95,244 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90F7DF8923D9AA6F00F75569 /* ExternalAccessory.framework in Frameworks */,
+				901A86B523B1802E00DF1A9A /* CryptorECC in Frameworks */,
+				90F7DF8B23D9AA9400F75569 /* HomeKit.framework in Frameworks */,
+				B9AE67530FABC2DA762CAFE5 /* Pods_TrustID.framework in Frameworks */,
+				90F7DF8D23D9AAED00F75569 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02669990B95D100790E3E98F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				90F7DF8C23D9AAED00F75569 /* HealthKit.framework */,
+				90F7DF8A23D9AA9400F75569 /* HomeKit.framework */,
+				90F7DF8823D9AA6F00F75569 /* ExternalAccessory.framework */,
+				293FDF8FE41879E12155EFD5 /* Pods_TrustID.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A492126D900C60ACDD7555D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				832E9E79F2080F65D3C5195B /* Pods-TrustID.debug.xcconfig */,
+				F00656AA2615B81F78ABB53D /* Pods-TrustID.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9011DD0723AAA3340085D7BE /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				9011DD0823AAA3480085D7BE /* SignUpViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		901A86AB23B1727800DF1A9A /* Slide */ = {
+			isa = PBXGroup;
+			children = (
+				90DB58C223AA97720013A84E /* Slide.swift */,
+				90DB58C423AA977D0013A84E /* Slide.xib */,
+			);
+			path = Slide;
+			sourceTree = "<group>";
+		};
+		901A86AC23B1728300DF1A9A /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				90C7377E23AAAFB800801C3E /* UserService.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
+		901A86AF23B176CD00DF1A9A /* AlertService */ = {
+			isa = PBXGroup;
+			children = (
+				901A86AD23B176B300DF1A9A /* AlertService.swift */,
+			);
+			path = AlertService;
+			sourceTree = "<group>";
+		};
+		901A86B023B17F1F00DF1A9A /* CryptoService */ = {
+			isa = PBXGroup;
+			children = (
+				901A86B123B17F2E00DF1A9A /* CryptoService.swift */,
+			);
+			path = CryptoService;
+			sourceTree = "<group>";
+		};
+		901A86B623B1833700DF1A9A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				901A86B723B1834200DF1A9A /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		901A86BB23B188BF00DF1A9A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				901A86BC23B188E400DF1A9A /* IdentifierTableViewCell.swift */,
+				90E0737A23BA721F00420E2E /* CredentialTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		901A86BE23B18B5E00DF1A9A /* Credentials */ = {
+			isa = PBXGroup;
+			children = (
+				901A86BF23B18B6E00DF1A9A /* CredentialsViewController.swift */,
+			);
+			path = Credentials;
+			sourceTree = "<group>";
+		};
+		907592EE23DEEBB800867B3D /* MRZScanner */ = {
+			isa = PBXGroup;
+			children = (
+				907592EF23DEEBC800867B3D /* MRZScannerViewController.swift */,
+			);
+			path = MRZScanner;
+			sourceTree = "<group>";
+		};
+		908B0CAC23BCF7EE00906FD1 /* CredentialService */ = {
+			isa = PBXGroup;
+			children = (
+				908B0CAA23BCF7E800906FD1 /* CredentialService.swift */,
+				908B0CAD23BCFB5F00906FD1 /* CredentialEnums.swift */,
+			);
+			path = CredentialService;
+			sourceTree = "<group>";
+		};
+		90C7377B23AAAEA400801C3E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				90C7377C23AAAEE200801C3E /* User.swift */,
+				901A86B923B187AF00DF1A9A /* STDIdentifier.swift */,
+				90E0737823B5DAE700420E2E /* Credential.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		90C7378023AAB55A00801C3E /* Pincode */ = {
+			isa = PBXGroup;
+			children = (
+				90C7378123AAB57600801C3E /* PincodeViewController.swift */,
+			);
+			path = Pincode;
+			sourceTree = "<group>";
+		};
+		90DB58C123AA97620013A84E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				901A86BB23B188BF00DF1A9A /* Cells */,
+				901A86AB23B1727800DF1A9A /* Slide */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		90DB58C623AA98C00013A84E /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				90FD087E23AA8D3A008A70D2 /* SceneDelegate.swift */,
+				90FD087C23AA8D3A008A70D2 /* AppDelegate.swift */,
+				90C7378323AAB6DE00801C3E /* UserDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		90DB58C723AA98D10013A84E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				90FD088223AA8D3A008A70D2 /* Main.storyboard */,
+				90FD088723AA8D3C008A70D2 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		90DB58C823AA98DD0013A84E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				907592EE23DEEBB800867B3D /* MRZScanner */,
+				90E0737223B5CDAF00420E2E /* BluetoothViewController */,
+				901A86BE23B18B5E00DF1A9A /* Credentials */,
+				901A86B623B1833700DF1A9A /* Home */,
+				90C7378023AAB55A00801C3E /* Pincode */,
+				9011DD0723AAA3340085D7BE /* SignUp */,
+				90DB58C923AA98E30013A84E /* Walkthrough */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		90DB58C923AA98E30013A84E /* Walkthrough */ = {
+			isa = PBXGroup;
+			children = (
+				90FD088023AA8D3A008A70D2 /* WalkthroughViewController.swift */,
+			);
+			path = Walkthrough;
+			sourceTree = "<group>";
+		};
+		90DB58CA23AA99CA0013A84E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				90F7DF8423D9A80100F75569 /* NFCService */,
+				90E0737523B5D28A00420E2E /* BluetoothService */,
+				901A86B023B17F1F00DF1A9A /* CryptoService */,
+				901A86AC23B1728300DF1A9A /* UserService */,
+				901A86AF23B176CD00DF1A9A /* AlertService */,
+				908B0CAC23BCF7EE00906FD1 /* CredentialService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		90E0737223B5CDAF00420E2E /* BluetoothViewController */ = {
+			isa = PBXGroup;
+			children = (
+				90E0737323B5CDCC00420E2E /* BluetoothViewController.swift */,
+				908B0CA823BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift */,
+			);
+			path = BluetoothViewController;
+			sourceTree = "<group>";
+		};
+		90E0737523B5D28A00420E2E /* BluetoothService */ = {
+			isa = PBXGroup;
+			children = (
+				90E0737623B5D29F00420E2E /* BluetoothService.swift */,
+				908B0CA623BCEBDF00906FD1 /* BluetoothServiceConfigration.swift */,
+			);
+			path = BluetoothService;
+			sourceTree = "<group>";
+		};
+		90F7DF8423D9A80100F75569 /* NFCService */ = {
+			isa = PBXGroup;
+			children = (
+				90F7DF8523D9A80E00F75569 /* NFCService.swift */,
+				9020B44623DD781F00B22E68 /* PassportDetails.swift */,
+			);
+			path = NFCService;
+			sourceTree = "<group>";
+		};
+		90F7DF8E23D9B09900F75569 /* Designables */ = {
+			isa = PBXGroup;
+			children = (
+				90F7DF9023D9B0AA00F75569 /* TrustButton.swift */,
+				90F7DF8F23D9B0AA00F75569 /* TrustTextField.swift */,
+			);
+			path = Designables;
+			sourceTree = "<group>";
+		};
 		90FD087023AA8D3A008A70D2 = {
 			isa = PBXGroup;
 			children = (
 				90FD087B23AA8D3A008A70D2 /* TrustID */,
 				90FD087A23AA8D3A008A70D2 /* Products */,
+				3A492126D900C60ACDD7555D /* Pods */,
+				02669990B95D100790E3E98F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +347,15 @@
 		90FD087B23AA8D3A008A70D2 /* TrustID */ = {
 			isa = PBXGroup;
 			children = (
-				90FD087C23AA8D3A008A70D2 /* AppDelegate.swift */,
-				90FD087E23AA8D3A008A70D2 /* SceneDelegate.swift */,
-				90FD088023AA8D3A008A70D2 /* ViewController.swift */,
-				90FD088223AA8D3A008A70D2 /* Main.storyboard */,
+				90F7DF8723D9A9F700F75569 /* TrustID.entitlements */,
+				90F7DF8E23D9B09900F75569 /* Designables */,
+				90C7377B23AAAEA400801C3E /* Models */,
+				90DB58CA23AA99CA0013A84E /* Services */,
+				90DB58C123AA97620013A84E /* Views */,
+				90DB58C623AA98C00013A84E /* Delegates */,
+				90DB58C823AA98DD0013A84E /* Controllers */,
+				90DB58C723AA98D10013A84E /* Storyboards */,
 				90FD088523AA8D3C008A70D2 /* Assets.xcassets */,
-				90FD088723AA8D3C008A70D2 /* LaunchScreen.storyboard */,
 				90FD088A23AA8D3C008A70D2 /* Info.plist */,
 			);
 			path = TrustID;
@@ -74,15 +368,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 90FD088D23AA8D3C008A70D2 /* Build configuration list for PBXNativeTarget "TrustID" */;
 			buildPhases = (
+				E0EA11BC6742AEEBAEA20C6C /* [CP] Check Pods Manifest.lock */,
 				90FD087523AA8D3A008A70D2 /* Sources */,
 				90FD087623AA8D3A008A70D2 /* Frameworks */,
 				90FD087723AA8D3A008A70D2 /* Resources */,
+				B7366BDBA63AD18D600048EF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TrustID;
+			packageProductDependencies = (
+				901A86B423B1802E00DF1A9A /* CryptorECC */,
+			);
 			productName = TrustID;
 			productReference = 90FD087923AA8D3A008A70D2 /* TrustID.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +410,9 @@
 				Base,
 			);
 			mainGroup = 90FD087023AA8D3A008A70D2;
+			packageReferences = (
+				901A86B323B1802E00DF1A9A /* XCRemoteSwiftPackageReference "BlueECC" */,
+			);
 			productRefGroup = 90FD087A23AA8D3A008A70D2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -128,19 +430,87 @@
 				90FD088923AA8D3C008A70D2 /* LaunchScreen.storyboard in Resources */,
 				90FD088623AA8D3C008A70D2 /* Assets.xcassets in Resources */,
 				90FD088423AA8D3A008A70D2 /* Main.storyboard in Resources */,
+				90DB58C523AA977D0013A84E /* Slide.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B7366BDBA63AD18D600048EF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TrustID/Pods-TrustID-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TrustID/Pods-TrustID-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrustID/Pods-TrustID-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0EA11BC6742AEEBAEA20C6C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TrustID-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		90FD087523AA8D3A008A70D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90FD088123AA8D3A008A70D2 /* ViewController.swift in Sources */,
+				908B0CAE23BCFB5F00906FD1 /* CredentialEnums.swift in Sources */,
+				9011DD0923AAA3480085D7BE /* SignUpViewController.swift in Sources */,
+				90C7378423AAB6DE00801C3E /* UserDelegate.swift in Sources */,
+				90E0737923B5DAE700420E2E /* Credential.swift in Sources */,
+				90FD088123AA8D3A008A70D2 /* WalkthroughViewController.swift in Sources */,
+				90C7377F23AAAFB800801C3E /* UserService.swift in Sources */,
+				90C7378223AAB57600801C3E /* PincodeViewController.swift in Sources */,
+				901A86B823B1834200DF1A9A /* HomeViewController.swift in Sources */,
+				90E0737B23BA721F00420E2E /* CredentialTableViewCell.swift in Sources */,
 				90FD087D23AA8D3A008A70D2 /* AppDelegate.swift in Sources */,
+				901A86BA23B187AF00DF1A9A /* STDIdentifier.swift in Sources */,
+				908B0CA923BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift in Sources */,
+				90F7DF9223D9B0AA00F75569 /* TrustButton.swift in Sources */,
+				90C7377D23AAAEE200801C3E /* User.swift in Sources */,
+				90E0737723B5D29F00420E2E /* BluetoothService.swift in Sources */,
+				908B0CAB23BCF7E800906FD1 /* CredentialService.swift in Sources */,
 				90FD087F23AA8D3A008A70D2 /* SceneDelegate.swift in Sources */,
+				901A86B223B17F2E00DF1A9A /* CryptoService.swift in Sources */,
+				901A86AE23B176B300DF1A9A /* AlertService.swift in Sources */,
+				901A86C023B18B6E00DF1A9A /* CredentialsViewController.swift in Sources */,
+				90E0737423B5CDCC00420E2E /* BluetoothViewController.swift in Sources */,
+				901A86BD23B188E400DF1A9A /* IdentifierTableViewCell.swift in Sources */,
+				90DB58C323AA97720013A84E /* Slide.swift in Sources */,
+				907592F023DEEBC800867B3D /* MRZScannerViewController.swift in Sources */,
+				908B0CA723BCEBDF00906FD1 /* BluetoothServiceConfigration.swift in Sources */,
+				90F7DF9123D9B0AA00F75569 /* TrustTextField.swift in Sources */,
+				9020B44723DD781F00B22E68 /* PassportDetails.swift in Sources */,
+				90F7DF8623D9A80E00F75569 /* NFCService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,17 +652,21 @@
 		};
 		90FD088E23AA8D3C008A70D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 832E9E79F2080F65D3C5195B /* Pods-TrustID.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TrustID/TrustID.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YY6R2N7DZD;
+				DEVELOPMENT_TEAM = MV47TP9PRQ;
 				INFOPLIST_FILE = TrustID/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.GatePay.TrustID;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gatepay.trustiddevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -300,17 +674,21 @@
 		};
 		90FD088F23AA8D3C008A70D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00656AA2615B81F78ABB53D /* Pods-TrustID.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TrustID/TrustID.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YY6R2N7DZD;
+				DEVELOPMENT_TEAM = MV47TP9PRQ;
 				INFOPLIST_FILE = TrustID/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.GatePay.TrustID;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gatepay.trustiddevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -338,6 +716,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		901A86B323B1802E00DF1A9A /* XCRemoteSwiftPackageReference "BlueECC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/IBM-Swift/BlueECC.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		901A86B423B1802E00DF1A9A /* CryptorECC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 901A86B323B1802E00DF1A9A /* XCRemoteSwiftPackageReference "BlueECC" */;
+			productName = CryptorECC;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 90FD087123AA8D3A008A70D2 /* Project object */;
 }

@@ -1,0 +1,44 @@
+PODS:
+  - NFCPassportReader (1.0.7):
+    - OpenSSL-Universal/Framework
+  - OpenSSL-Universal/Framework (1.0.2.19)
+  - QKMRZParser (1.0.1)
+  - QKMRZScanner (2.1.2):
+    - QKMRZParser
+    - SwiftyTesseract
+  - Sejima (0.9.1)
+  - SwiftyTesseract (2.2.2)
+
+DEPENDENCIES:
+  - NFCPassportReader (from `https://github.com/AndyQ/NFCPassportReader.git`)
+  - QKMRZScanner
+  - Sejima
+
+SPEC REPOS:
+  trunk:
+    - OpenSSL-Universal
+    - QKMRZParser
+    - QKMRZScanner
+    - Sejima
+    - SwiftyTesseract
+
+EXTERNAL SOURCES:
+  NFCPassportReader:
+    :git: https://github.com/AndyQ/NFCPassportReader.git
+
+CHECKOUT OPTIONS:
+  NFCPassportReader:
+    :commit: d815effdc4a16dcd5e71251a289807a230e412c8
+    :git: https://github.com/AndyQ/NFCPassportReader.git
+
+SPEC CHECKSUMS:
+  NFCPassportReader: 7e72c0f47935e053ea3d3d45e234a85aae23be59
+  OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
+  QKMRZParser: 07921dbffa7e4064406113731bc0f1f5e6210bce
+  QKMRZScanner: aaf269e766c4a51526034e7c4e695078b7dfeb0e
+  Sejima: d1d64242d28010acee9dcd8398453b516905dc9a
+  SwiftyTesseract: a05d2c6771872f203a9ba65055cb2a8b6a385552
+
+PODFILE CHECKSUM: 0aaf73d5a03c676d32e5c898ec446b42eadbfe59
+
+COCOAPODS: 1.8.4

@@ -1,0 +1,6 @@
+framework module Sejima {
+  umbrella header "Sejima-umbrella.h"
+
+  export *
+  module * { export * }
+}

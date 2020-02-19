@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "2315AD9D-2108-4D5D-9EF3-D749D03B174A"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D0B57A16-401F-4705-A617-8D6F68E7E1CD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TrustID/Controllers/MRZScanner/MRZScannerViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "tagReaderSession(_:didDetect:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D0B57A16-401F-4705-A617-8D6F68E7E1CD - 6bde1e630a1e075d"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TrustID.MRZScannerViewController.tagReaderSession(_: __C.NFCTagReaderSession, didDetect: Swift.Array&lt;CoreNFC.NFCTag&gt;) -&gt; ()"
+                  moduleName = "TrustID"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/berkturan/Desktop/GatePay/TrustID/TrustID/Controllers/MRZScanner/MRZScannerViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "828">
+               </Location>
+               <Location
+                  uuid = "D0B57A16-401F-4705-A617-8D6F68E7E1CD - fde58d53c01953f6"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TrustID.MRZScannerViewController.tagReaderSession(_: __C.NFCTagReaderSession, didDetect: Swift.Array&lt;CoreNFC.NFCTag&gt;) -&gt; ()"
+                  moduleName = "TrustID"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/berkturan/Desktop/GatePay/TrustID/TrustID/Controllers/MRZScanner/MRZScannerViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "136">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
