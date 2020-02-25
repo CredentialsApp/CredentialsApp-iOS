@@ -1,0 +1,6 @@
+framework module Neumann {
+  umbrella header "Neumann-umbrella.h"
+
+  export *
+  module * { export * }
+}

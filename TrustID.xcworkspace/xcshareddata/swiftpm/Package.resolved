@@ -9,6 +9,15 @@
           "revision": "73f362cb0d9c5f1fd0089240d7b293cd2bff18db",
           "version": "1.2.5"
         }
+      },
+      {
+        "package": "TRETJapanNFCReader",
+        "repositoryURL": "https://github.com/treastrain/TRETJapanNFCReader",
+        "state": {
+          "branch": null,
+          "revision": "37f1e3e2c055eb1281eca3e9f66a8f979fbb1645",
+          "version": "1.0.3"
+        }
       }
     ]
   },

@@ -9,15 +9,63 @@
 import UIKit
 import CoreNFC
 
+@available(iOS 13, *)
+public enum NFCViewDisplayMessage {
+    case requestPresentPassport
+    case authenticatingWithPassport(Int)
+    case readingDataGroupProgress(DataGroupId, Int)
+    case error(TagError)
+    case successfulRead
+}
+
+@available(iOS 13, *)
+extension NFCViewDisplayMessage {
+    public var description: String {
+        switch self {
+        case .requestPresentPassport:
+            return "Hold your iPhone near an NFC enabled passport."
+        case .authenticatingWithPassport(let progress):
+            let progressString = handleProgress(percentualProgress: progress)
+            return "Authenticating with passport.....\n\n\(progressString)"
+        case .readingDataGroupProgress(let dataGroup, let progress):
+            let progressString = handleProgress(percentualProgress: progress)
+            return "Reading \(dataGroup).....\n\n\(progressString)"
+        case .error(let tagError):
+            switch tagError {
+            case TagError.TagNotValid:
+                return "Tag not valid."
+            case TagError.MoreThanOneTagFound:
+                return "More than 1 tags was found. Please present only 1 tag."
+            case TagError.ConnectionError:
+                return "Connection error. Please try again."
+            case TagError.InvalidMRZKey:
+                return "MRZ Key not valid for this document."
+            case TagError.ResponseError(let description):
+                return "Sorry, there was a problem reading the passport. \(description)"
+            default:
+                return "Sorry, there was a problem reading the passport. Please try again"
+            }
+        case .successfulRead:
+            return "Passport read successfully"
+        }
+    }
+
+    func handleProgress(percentualProgress: Int) -> String {
+        let p = (percentualProgress/20)
+        let full = String(repeating: "🟢 ", count: p)
+        let empty = String(repeating: "⚪️ ", count: 5-p)
+        return "\(full)\(empty)"
+    }
+}
 
 @available(iOS 13, *)
 public class PassportReader : NSObject {
     
     private var passport : NFCPassportModel = NFCPassportModel()
     private var readerSession: NFCTagReaderSession?
-    private var progTitle = ""
     private var elementReadAttempts = 0
-
+    private var currentlyReadingDataGroup : DataGroupId?
+    
     private var dataGroupsToRead : [DataGroupId] = []
     private var readAllDatagroups = false
     private var skipSecureElements = true
@@ -27,7 +75,9 @@ public class PassportReader : NSObject {
     private var mrzKey : String = ""
     
     private var scanCompletedHandler: ((NFCPassportModel?, TagError?)->())!
+    private var nfcViewDisplayMessageHandler: ((NFCViewDisplayMessage) -> String?)?
     private var masterListURL : URL?
+    private var shouldNotReportNextReaderSessionInvalidationErrorUserCanceled : Bool = false
 
     public init( masterListURL: URL? = nil ) {
         super.init()
@@ -39,12 +89,13 @@ public class PassportReader : NSObject {
         self.masterListURL = masterListURL
     }
     
-    public func readPassport( mrzKey : String,  tags: [DataGroupId] = [], skipSecureElements :Bool = true, completed: @escaping (NFCPassportModel?, TagError?)->() ) {
+    public func readPassport( mrzKey : String, tags: [DataGroupId] = [], skipSecureElements :Bool = true, customDisplayMessage: ((NFCViewDisplayMessage) -> String?)? = nil, completed: @escaping (NFCPassportModel?, TagError?)->()) {
         self.passport = NFCPassportModel()
         self.mrzKey = mrzKey
         self.dataGroupsToRead.removeAll()
         self.dataGroupsToRead.append( contentsOf:tags)
         self.scanCompletedHandler = completed
+        self.nfcViewDisplayMessageHandler = customDisplayMessage
         self.skipSecureElements = skipSecureElements
         
         // If no tags specified, read all
@@ -64,7 +115,8 @@ public class PassportReader : NSObject {
         
         if NFCTagReaderSession.readingAvailable {
             readerSession = NFCTagReaderSession(pollingOption: [.iso14443], delegate: self, queue: nil)
-            readerSession?.alertMessage = "Hold your iPhone near an NFC enabled passport."
+
+            self.updateReaderSessionMessage( alertMessage: NFCViewDisplayMessage.requestPresentPassport )
             readerSession?.begin()
         }
     }
@@ -84,49 +136,68 @@ extension PassportReader : NFCTagReaderSessionDelegate {
         // You must create a new session to restart RF polling.
         Log.debug( "tagReaderSession:didInvalidateWithError - \(error)" )
         self.readerSession = nil
-        
+
+        if let readerError = error as? NFCReaderError, readerError.code == NFCReaderError.readerSessionInvalidationErrorUserCanceled
+            && self.shouldNotReportNextReaderSessionInvalidationErrorUserCanceled {
+            self.shouldNotReportNextReaderSessionInvalidationErrorUserCanceled = false
+        } else {
+            var userError = TagError.UnexpectedError
+            if let readerError = error as? NFCReaderError {
+                switch (readerError.code) {
+                case NFCReaderError.readerSessionInvalidationErrorUserCanceled:
+                    userError = TagError.UserCanceled
+                default:
+                    userError = TagError.UnexpectedError
+                }
+            }
+            self.scanCompletedHandler(nil, userError)
+        }
     }
     
     public func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
         Log.debug( "tagReaderSession:didDetect - \(tags[0])" )
         if tags.count > 1 {
-            session.alertMessage = "More than 1 tags was found. Please present only 1 tag."
+            let errorMessage = NFCViewDisplayMessage.error(.MoreThanOneTagFound)
+            self.invalidateSession(errorMessage: errorMessage, error: TagError.MoreThanOneTagFound)
             return
         }
-        
+
         let tag = tags.first!
         var passportTag: NFCISO7816Tag
         switch tags.first! {
         case let .iso7816(tag):
             passportTag = tag
         default:
-            session.invalidate(errorMessage: "Tag not valid.")
+            let errorMessage = NFCViewDisplayMessage.error(TagError.TagNotValid)
+            self.invalidateSession(errorMessage:errorMessage, error: TagError.TagNotValid)
             return
         }
         
         // Connect to tag
         session.connect(to: tag) { [unowned self] (error: Error?) in
             if error != nil {
-                session.invalidate(errorMessage: "Connection error. Please try again.")
+                let errorMessage = NFCViewDisplayMessage.error(TagError.ConnectionError)
+                self.invalidateSession(errorMessage: errorMessage, error: TagError.ConnectionError)
                 return
             }
             
-            self.readerSession?.alertMessage = "Authenticating with passport.....\n"
+            self.updateReaderSessionMessage( alertMessage: NFCViewDisplayMessage.authenticatingWithPassport(0) )
 
             self.tagReader = TagReader(tag:passportTag)
             self.tagReader!.progress = { [unowned self] (progress) in
-                self.updateReaderAlertProgress( progressPercentage: progress )
+                if let dgId = self.currentlyReadingDataGroup {
+                    self.updateReaderSessionMessage( alertMessage: NFCViewDisplayMessage.readingDataGroupProgress(dgId, progress) )
+                } else {
+                    self.updateReaderSessionMessage( alertMessage: NFCViewDisplayMessage.authenticatingWithPassport(progress) )
+                }
             }
 
             self.startReading( )
         }
     }
     
-    func updateReaderAlertProgress( progressPercentage progress: Int ) {
-        let p = (progress/20)
-        let full = String(repeating: "🟢 ", count: p)
-        let empty = String(repeating: "⚪️ ", count: 5-p)
-        self.readerSession?.alertMessage = "\(self.progTitle)\n\(full)\(empty)"
+    func updateReaderSessionMessage(alertMessage: NFCViewDisplayMessage ) {
+        self.readerSession?.alertMessage = self.nfcViewDisplayMessageHandler?(alertMessage) ?? alertMessage.description
     }
 }
 
@@ -135,14 +206,12 @@ extension PassportReader {
     
     func startReading() {
         elementReadAttempts = 0
+        self.currentlyReadingDataGroup = nil
         self.handleBAC(completed: { [weak self] error in
             if error == nil {
                 Log.info( "BAC Successful" )
                 // At this point, BAC Has been done and the TagReader has been set up with the SecureMessaging
                 // session keys
-                self?.progTitle = "Reading passport data.....\n"
-                self?.readerSession?.alertMessage = "Reading passport data.....\n"
-                
                 self?.readNextDataGroup( ) { [weak self] error in
                     if self?.dataGroupsToRead.count != 0 {
                         // OK we've got more datagroups to go - we've probably failed security verification
@@ -152,29 +221,43 @@ extension PassportReader {
                         }
                     } else {
                         if let error = error {
-                            self?.readerSession?.invalidate(errorMessage: error.value)
+                            self?.invalidateSession(errorMessage:NFCViewDisplayMessage.error(error), error: error)
                         } else {
+                            self?.updateReaderSessionMessage(alertMessage: NFCViewDisplayMessage.successfulRead)
+
                             OpenSSLUtils.loadOpenSSL()
 
                             // Before we finish, check if we should do active authentication
                             self?.doActiveAuthenticationIfNeccessary() {
+                                // We succesfully read the passport, now we're about to invalidate the session. Before
+                                // doing so, we want to be sure that the 'user cancelled' error that we're causing by
+                                // calling 'invalidate' will not be reported back to the user
+                                self?.shouldNotReportNextReaderSessionInvalidationErrorUserCanceled = true
                                 self?.readerSession?.invalidate()
-                                
+
                                 // If we have a masterlist url set then use that and verify the passport now
                                 self?.passport.verifyPassport(masterListURL: self?.masterListURL)
                                 self?.scanCompletedHandler( self?.passport, nil )
-                                
+
                                 OpenSSLUtils.cleanupOpenSSL()
                             }
                         }
                     }
                 }
-            } else {
+            } else if let error = error {
                 Log.info( "BAC Failed" )
-                self?.readerSession?.invalidate(errorMessage: "Sorry, there was a problem reading the passport. Please try again" )
-                self?.scanCompletedHandler(nil, error)
+                let displayMessage = NFCViewDisplayMessage.error(error)
+                self?.invalidateSession(errorMessage: displayMessage, error: error)
             }
         })
+    }
+
+    func invalidateSession(errorMessage: NFCViewDisplayMessage, error: TagError) {
+        // Mark the next 'invalid session' error as not reportable (we're about to cause it by invalidating the
+        // session). The real error is reported back with the call to the completed handler
+        self.shouldNotReportNextReaderSessionInvalidationErrorUserCanceled = true
+        self.readerSession?.invalidate(errorMessage: self.nfcViewDisplayMessageHandler?(errorMessage) ?? errorMessage.description)
+        self.scanCompletedHandler(nil, error)
     }
     
     func doActiveAuthenticationIfNeccessary( completed: @escaping ()->() ) {
@@ -219,12 +302,13 @@ extension PassportReader {
         }
         
         let dgId = dataGroupsToRead[0]
+        self.currentlyReadingDataGroup = dgId
         Log.info( "Reading tag - \(dgId)" )
-        self.progTitle = "Reading \(dgId).....\n"
         elementReadAttempts += 1
         
+        self.updateReaderSessionMessage( alertMessage: NFCViewDisplayMessage.readingDataGroupProgress(dgId, 0) )
         tagReader.readDataGroup(dataGroup:dgId) { [unowned self] (response, err) in
-            self.updateReaderAlertProgress( progressPercentage: 100 )
+            self.updateReaderSessionMessage( alertMessage: NFCViewDisplayMessage.readingDataGroupProgress(dgId, 100) )
             if let response = response {
                 do {
                     let dg = try DataGroupParser().parseDG(data: response)
@@ -273,7 +357,7 @@ extension PassportReader {
                 } else if errMsg == "SM data objects incorrect" {
                     // Can't read this element security objects now invalid - and return out so we re-do BAC
                     completed(nil)
-                } else if errMsg.hasPrefix( "Wrong length" ) {  // Should now handle errors 0x6C xx, and 0x67 0x00
+                } else if errMsg.hasPrefix( "Wrong length" ) || errMsg.hasPrefix( "End of file" ) {  // Should now handle errors 0x6C xx, and 0x67 0x00
                     // OK passport can't handle max length so drop it down
                     self.tagReader?.reduceDataReadingAmount()
                     completed(nil)

@@ -77,13 +77,12 @@ public class NFCPassportModel {
     public private(set) var activeAuthenticationPassed : Bool = false
     public private(set) var verificationErrors : [Error] = []
 
-    
     public var passportImage : UIImage? {
         guard let dg2 = dataGroupsRead[.DG2] as? DataGroup2 else { return nil }
         
         return dg2.getImage()
-        
     }
+    
     public var signatureImage : UIImage? {
         guard let dg7 = dataGroupsRead[.DG7] as? DataGroup7 else { return nil }
         
@@ -128,6 +127,8 @@ public class NFCPassportModel {
         for (key, value) in dataGroupsRead {
             if hashAlgorythm == "SHA256" {
                 ret[key] = calcSHA256Hash(value.body)
+            } else if hashAlgorythm == "SHA384" {
+                ret[key] = calcSHA1Hash(value.body)
             } else if hashAlgorythm == "SHA1" {
                 ret[key] = calcSHA1Hash(value.body)
             }
@@ -176,6 +177,7 @@ public class NFCPassportModel {
     // Check if signing certificate is on the revocation list
     // We do this by trying to build a trust chain of the passport certificate against the ones in the revocation list
     // and if we are successful then its been revoked.
+    // NOTE - NOT USED YET AS NOT ABLE TO TEST
     func hasCertBeenRevoked( revocationListURL : URL ) -> Bool {
         var revoked = false
         do {
@@ -285,6 +287,8 @@ public class NFCPassportModel {
                     sodHashAlgo = "SHA1"
                 } else if line.contains( "sha256" ) {
                     sodHashAlgo = "SHA256"
+                } else if line.contains( "sha384" ) {
+                    sodHashAlgo = "SHA384"
                 }
             } else if line.contains("d=3" ) && line.contains( "INTEGER" ) {
                 if let range = line.range(of: "INTEGER") {

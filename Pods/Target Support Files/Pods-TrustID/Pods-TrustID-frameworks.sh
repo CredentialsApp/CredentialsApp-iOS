@@ -162,6 +162,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/NFCPassportReader/NFCPassportReader.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Neumann/Neumann.framework"
   install_framework "${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework"
   install_dsym "${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework.dSYM"
   install_framework "${BUILT_PRODUCTS_DIR}/QKMRZParser/QKMRZParser.framework"
@@ -171,6 +172,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/NFCPassportReader/NFCPassportReader.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Neumann/Neumann.framework"
   install_framework "${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework"
   install_dsym "${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework.dSYM"
   install_framework "${BUILT_PRODUCTS_DIR}/QKMRZParser/QKMRZParser.framework"

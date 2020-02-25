@@ -17,6 +17,7 @@
 		901A86C023B18B6E00DF1A9A /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901A86BF23B18B6E00DF1A9A /* CredentialsViewController.swift */; };
 		9020B44723DD781F00B22E68 /* PassportDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9020B44623DD781F00B22E68 /* PassportDetails.swift */; };
 		907592F023DEEBC800867B3D /* MRZScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907592EF23DEEBC800867B3D /* MRZScannerViewController.swift */; };
+		908890632405477200829703 /* TRETJapanNFCReader in Frameworks */ = {isa = PBXBuildFile; productRef = 908890622405477200829703 /* TRETJapanNFCReader */; };
 		908B0CA723BCEBDF00906FD1 /* BluetoothServiceConfigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CA623BCEBDF00906FD1 /* BluetoothServiceConfigration.swift */; };
 		908B0CA923BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CA823BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift */; };
 		908B0CAB23BCF7E800906FD1 /* CredentialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CAA23BCF7E800906FD1 /* CredentialService.swift */; };
@@ -96,6 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90F7DF8923D9AA6F00F75569 /* ExternalAccessory.framework in Frameworks */,
+				908890632405477200829703 /* TRETJapanNFCReader in Frameworks */,
 				901A86B523B1802E00DF1A9A /* CryptorECC in Frameworks */,
 				90F7DF8B23D9AA9400F75569 /* HomeKit.framework in Frameworks */,
 				B9AE67530FABC2DA762CAFE5 /* Pods_TrustID.framework in Frameworks */,
@@ -381,6 +383,7 @@
 			name = TrustID;
 			packageProductDependencies = (
 				901A86B423B1802E00DF1A9A /* CryptorECC */,
+				908890622405477200829703 /* TRETJapanNFCReader */,
 			);
 			productName = TrustID;
 			productReference = 90FD087923AA8D3A008A70D2 /* TrustID.app */;
@@ -412,6 +415,7 @@
 			mainGroup = 90FD087023AA8D3A008A70D2;
 			packageReferences = (
 				901A86B323B1802E00DF1A9A /* XCRemoteSwiftPackageReference "BlueECC" */,
+				908890612405477200829703 /* XCRemoteSwiftPackageReference "TRETJapanNFCReader" */,
 			);
 			productRefGroup = 90FD087A23AA8D3A008A70D2 /* Products */;
 			projectDirPath = "";
@@ -726,6 +730,14 @@
 				minimumVersion = 1.2.5;
 			};
 		};
+		908890612405477200829703 /* XCRemoteSwiftPackageReference "TRETJapanNFCReader" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/treastrain/TRETJapanNFCReader";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -733,6 +745,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 901A86B323B1802E00DF1A9A /* XCRemoteSwiftPackageReference "BlueECC" */;
 			productName = CryptorECC;
+		};
+		908890622405477200829703 /* TRETJapanNFCReader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 908890612405477200829703 /* XCRemoteSwiftPackageReference "TRETJapanNFCReader" */;
+			productName = TRETJapanNFCReader;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

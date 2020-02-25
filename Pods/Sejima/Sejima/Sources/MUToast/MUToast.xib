@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MUToast" customModule="Sejima" customModuleProvider="target">
+            <connections>
+                <outlet property="buttons" destination="aiJ-zc-nb2" id="ye1-bS-aNB"/>
+                <outlet property="buttonsBottom" destination="qps-4v-pic" id="maN-Zw-xEJ"/>
+                <outlet property="buttonsHeight" destination="ogx-OC-7rE" id="biQ-sZ-Xn1"/>
+                <outlet property="buttonsTop" destination="whP-7u-oQ3" id="IeB-Da-QDv"/>
+                <outlet property="header" destination="xCF-DK-RMr" id="90C-kR-3bU"/>
+                <outlet property="imageLeading" destination="IcN-KN-rid" id="Uqi-jR-SB9"/>
+                <outlet property="imageView" destination="Pq6-sz-WaI" id="2A3-Cg-D93"/>
+                <outlet property="imageWidth" destination="t1J-JV-PBc" id="zK7-ED-3od"/>
+                <outlet property="labelsLeading" destination="waw-DK-JvO" id="jPU-Dh-4Ns"/>
+                <outlet property="labelsTop" destination="wVf-kg-UQA" id="wji-Fb-lNL"/>
+                <outlet property="labelsTrailing" destination="vi4-go-gmO" id="vbw-3k-urI"/>
+                <outlet property="markerView" destination="2Rf-A7-efj" id="zLf-Lj-b96"/>
+                <outlet property="markerWidth" destination="gcr-kD-OB9" id="u2m-UT-G9X"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Rf-A7-efj">
+                    <rect key="frame" x="0.0" y="0.0" width="5" height="120"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="5" id="gcr-kD-OB9"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pq6-sz-WaI">
+                    <rect key="frame" x="5" y="16" width="0.0" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Pq6-sz-WaI" secondAttribute="height" multiplier="1:1" id="KUh-9H-BJY"/>
+                        <constraint firstAttribute="width" id="t1J-JV-PBc"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xCF-DK-RMr" customClass="MUHeader" customModule="Sejima" customModuleProvider="target">
+                    <rect key="frame" x="21" y="16" width="338" height="88"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aiJ-zc-nb2">
+                    <rect key="frame" x="21" y="104" width="338" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="height" id="ogx-OC-7rE"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="aiJ-zc-nb2" firstAttribute="leading" secondItem="xCF-DK-RMr" secondAttribute="leading" id="6ow-gM-6Vm"/>
+                <constraint firstItem="2Rf-A7-efj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7sJ-na-lTf"/>
+                <constraint firstItem="Pq6-sz-WaI" firstAttribute="leading" secondItem="2Rf-A7-efj" secondAttribute="trailing" id="IcN-KN-rid"/>
+                <constraint firstItem="xCF-DK-RMr" firstAttribute="height" relation="greaterThanOrEqual" secondItem="Pq6-sz-WaI" secondAttribute="height" priority="750" id="NM4-RQ-hZ3"/>
+                <constraint firstAttribute="bottom" secondItem="2Rf-A7-efj" secondAttribute="bottom" id="XTB-pV-3Gf"/>
+                <constraint firstItem="xCF-DK-RMr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="750" id="dQC-YE-HYw"/>
+                <constraint firstItem="Pq6-sz-WaI" firstAttribute="top" secondItem="xCF-DK-RMr" secondAttribute="top" id="hF1-Dv-NPb"/>
+                <constraint firstItem="2Rf-A7-efj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kec-bh-ymb"/>
+                <constraint firstAttribute="bottom" secondItem="aiJ-zc-nb2" secondAttribute="bottom" constant="16" id="qps-4v-pic"/>
+                <constraint firstItem="aiJ-zc-nb2" firstAttribute="trailing" secondItem="xCF-DK-RMr" secondAttribute="trailing" id="sqM-7T-RQV"/>
+                <constraint firstAttribute="trailing" secondItem="xCF-DK-RMr" secondAttribute="trailing" constant="16" id="vi4-go-gmO"/>
+                <constraint firstItem="xCF-DK-RMr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="wVf-kg-UQA"/>
+                <constraint firstItem="xCF-DK-RMr" firstAttribute="leading" secondItem="Pq6-sz-WaI" secondAttribute="trailing" constant="16" id="waw-DK-JvO"/>
+                <constraint firstItem="aiJ-zc-nb2" firstAttribute="top" secondItem="xCF-DK-RMr" secondAttribute="bottom" id="whP-7u-oQ3"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="ONT-Dk-fgP" appends="YES" id="3YJ-jl-9Mb"/>
+            </connections>
+            <point key="canvasLocation" x="138.40000000000001" y="153.82308845577214"/>
+        </view>
+        <tapGestureRecognizer id="ONT-Dk-fgP">
+            <connections>
+                <action selector="didTap:" destination="-1" id="sxh-gI-60M"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>

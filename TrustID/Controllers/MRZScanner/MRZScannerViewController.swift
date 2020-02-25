@@ -8,53 +8,21 @@
 
 import UIKit
 import QKMRZScanner
-import CoreNFC
+import NFCPassportReader
 
-class MRZScannerViewController: UIViewController, NFCTagReaderSessionDelegate, NFCNDEFReaderSessionDelegate {
-    func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
-        
-    }
-    
-    func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
-        print(messages)
-    }
-    
-    func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {
-        
-    }
-    
-    func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
-        
-    }
-    
-    func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
-        let tag = tags.first!
-        let ndefReader = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
-        if case let .iso7816(iso7816tag) = tag {
-            session.connect(to: tag) { (error) in
-                ndefReader.connect(to: iso7816tag) { (error) in
-                    if error != nil { print("ERROR 1: " + error!.localizedDescription) }
-                    iso7816tag.readNDEF { (message, error) in
-                        if error != nil { print("ERROR 2:" + error!.localizedDescription) }
-                        print("Message: " + message.debugDescription)
-                    }
-                }
-            }
-        }
-    }
-    
+class MRZScannerViewController: UIViewController, QKMRZScannerViewDelegate {
     
     // MARK: - UI Elements
     @IBOutlet weak var mrzScannerView: QKMRZScannerView!
-    // MARK: - properties
     
+    // MARK: - properties
+    private var passportReader: PassportReader!
+    private var passportDetails = PassportDetails()
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         mrzScannerView.delegate = self
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        passportReader = PassportReader()
         mrzScannerView.startScanning()
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -62,16 +30,38 @@ class MRZScannerViewController: UIViewController, NFCTagReaderSessionDelegate, N
         mrzScannerView.stopScanning()
     }
     // MARK: - Function
-    
+    func mrzScannerView(_ mrzScannerView: QKMRZScannerView, didFind scanResult: QKMRZScanResult) {
+        
+        fillPassportDetails(with: scanResult)
+        let mrzKey = passportDetails.getMRZKey()
+        print(mrzKey)
+        passportReader.readPassport(mrzKey: mrzKey) { (model, error) in
+            if error != nil { print(error) }
+            print(model?.dateOfBirth)
+        }
+    }
+    func fillPassportDetails(with information: QKMRZScanResult) {
+        passportDetails.expiryDate = getDateParts(date: information.expiryDate!)
+        passportDetails.passportNumber = information.documentNumber.replacingOccurrences(of: "U", with: "")
+        passportDetails.dateOfBirth = getDateParts(date: information.birthDate!)
+    }
+    func getDateParts(date: Date) -> String {
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: date)
+        var dayString = String(components.day!)
+        if dayString.count == 1 {
+            dayString = "0" + dayString
+        }
+        var monthString = String(components.month!)
+        if monthString.count == 1 {
+            monthString = "0" + monthString
+        }
+        let yearString = String(components.year!)
+        let suffixed = yearString.suffix(2)
+        print(suffixed.description + monthString + dayString)
+        return suffixed.description + monthString + dayString
+    }
     // MARK: - Actions
 
 }
 
-extension MRZScannerViewController: QKMRZScannerViewDelegate {
-    func mrzScannerView(_ mrzScannerView: QKMRZScannerView, didFind scanResult: QKMRZScanResult) {
-        let nfcService = NFCService(scanResult: scanResult)
-        let tagReaderSession = NFCTagReaderSession(pollingOption: .iso14443, delegate: self)
-        print(scanResult.documentType)
-    }
-    
-}

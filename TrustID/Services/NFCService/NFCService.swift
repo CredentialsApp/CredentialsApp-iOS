@@ -7,45 +7,58 @@
 //
 
 import Foundation
-import NFCPassportReader
 import QKMRZScanner
+import NFCPassportReader
+import CoreNFC
 class NFCService: NSObject {
-    
     // MARK: - properties
     private var reader: PassportReader!
     private var scanResult: QKMRZScanResult!
-    
+    private var passportDetails = PassportDetails()
+    private var tagReader: NFCTagReaderSession!
+    private var ndefReader: NFCNDEFReaderSession!
     // MARK: - Life Cycle
     override init() {
         super.init()
         self.reader = PassportReader()
+        
     }
     
     convenience init(scanResult: QKMRZScanResult) {
         self.init()
         self.reader = PassportReader()
         self.scanResult = scanResult
+        
     }
     
     // MARK: - Function
     func read() {
-        let mrzKey = fillPassportDetails(with: scanResult)
-        reader.readPassport(mrzKey: mrzKey, tags: [.COM, .DG1, .DG2], skipSecureElements: true) { (model, error) in
-            print(model)
-        }
+        fillPassportDetails(with: scanResult)
+        let mrzKey = passportDetails.getMRZKey()
+        
     }
     
-    func fillPassportDetails(with information: QKMRZScanResult) -> String {
-        let passportDetails = PassportDetails()
-        passportDetails.expiryDate = "230708"
-        passportDetails.passportNumber = scanResult.documentNumber.replacingOccurrences(of: "U", with: "")
-        passportDetails.dateOfBirth = "980708"
-        let mrzKey = passportDetails.getMRZKey()
-        debugPrint(mrzKey)
-        return mrzKey
+    func fillPassportDetails(with information: QKMRZScanResult) {
+        passportDetails.expiryDate = getDateParts(date: information.expiryDate!)
+        passportDetails.passportNumber = information.documentNumber.replacingOccurrences(of: "U", with: "")
+        passportDetails.dateOfBirth = getDateParts(date: information.birthDate!)
+    }
+    
+    func getDateParts(date: Date) -> String {
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: date)
+        var dayString = String(components.day!)
+        if dayString.count == 1 {
+            dayString = "0" + dayString
+        }
+        var monthString = String(components.month!)
+        if monthString.count == 1 {
+            monthString = "0" + monthString
+        }
+        let yearString = String(components.year!)
+        let suffixed = yearString.suffix(2)
+        return suffixed.description + monthString + dayString
     }
     
 }
-
-
 

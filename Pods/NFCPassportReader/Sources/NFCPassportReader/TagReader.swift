@@ -24,7 +24,7 @@ extension PassportTagError: LocalizedError {
 
 @available(iOS 13, *)
 public enum TagError: Error {
-    case ResponseError(String)
+    case ResponseError(String, UInt8, UInt8)
     case InvalidResponse
     case UnexpectedError
     case NFCNotSupported
@@ -41,10 +41,15 @@ public enum TagError: Error {
     case UnknownTag
     case UnknownImageFormat
     case NotImplemented
+    case TagNotValid
+    case ConnectionError
+    case UserCanceled
+    case InvalidMRZKey
+    case MoreThanOneTagFound
 
     var value: String {
         switch self {
-        case .ResponseError(let errMsg): return errMsg
+        case .ResponseError(let errMsg, _, _): return errMsg
         case .InvalidResponse: return "InvalidResponse"
         case .UnexpectedError: return "UnexpectedError"
         case .NFCNotSupported: return "NFCNotSupported"
@@ -61,6 +66,11 @@ public enum TagError: Error {
         case .UnknownTag: return "UnknownTag"
         case .UnknownImageFormat: return "UnknownImageFormat"
         case .NotImplemented: return "NotImplemented"
+        case .TagNotValid: return "TagNotValid"
+        case .ConnectionError: return "ConnectionError"
+        case .UserCanceled: return "UserCanceled"
+        case .InvalidMRZKey: return "InvalidMRZKey"
+        case .MoreThanOneTagFound: return "MoreThanOneTagFound"
         }
     }
 }
@@ -177,7 +187,7 @@ public struct ResponseAPDU {
 public class TagReader {
     var tag : NFCISO7816Tag
     var secureMessaging : SecureMessaging?
-    var maxDataLengthToRead : UInt8 = 0xFF
+    var maxDataLengthToRead : Int = 256
 
     var progress : ((Int)->())?
 
@@ -186,7 +196,9 @@ public class TagReader {
     }
     
     func reduceDataReadingAmount() {
-         maxDataLengthToRead = 0xA0
+        if maxDataLengthToRead == 256 {
+            maxDataLengthToRead = 0xA0
+        }
     }
 
 
@@ -267,17 +279,24 @@ public class TagReader {
     }
     
     func readBinaryData( leftToRead: Int, amountRead : Int, completed: @escaping ([UInt8]?, TagError?)->() ) {
-        var readAmount : UInt8 = maxDataLengthToRead
+        var readAmount : Int = maxDataLengthToRead
         if leftToRead < maxDataLengthToRead {
-            readAmount = UInt8(leftToRead)
+            readAmount = leftToRead
         }
         
         self.progress?( Int(Float(amountRead) / Float(leftToRead+amountRead ) * 100))
         let offset = intToBin(amountRead, pad:4)
 
-        let data : [UInt8] = [0x00, 0xB0, offset[0], offset[1], 0x00, 0x00, readAmount]
-        //print( "Sending \(binToHexRep(data))" )
-        let cmd = NFCISO7816APDU(data:Data(data))!
+        let cmd = NFCISO7816APDU(
+            instructionClass: 00,
+            instructionCode: 0xB0,
+            p1Parameter: offset[0],
+            p2Parameter: offset[1],
+            data: Data(),
+            expectedResponseLength: readAmount
+        )
+
+        Log.debug( "Expected response length: \(readAmount)" )
         self.send( cmd: cmd ) { (resp,err) in
             guard let response = resp else {
                 completed( nil, err)
@@ -314,7 +333,7 @@ public class TagReader {
         tag.sendCommand(apdu: toSend) { [unowned self] (data, sw1, sw2, error) in
             if let error = error {
                 Log.error( "Error reading tag - \(error.localizedDescription)" )
-                completed( nil, TagError.ResponseError( error.localizedDescription ) )
+                completed( nil, TagError.ResponseError( error.localizedDescription, sw1, sw2 ) )
             } else {
                 var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
                 
@@ -331,9 +350,16 @@ public class TagReader {
                 if rep.sw1 == 0x90 && rep.sw2 == 0x00 {
                     completed( rep, nil )
                 } else {
-                    let errorMsg = self.decodeError(sw1: rep.sw1, sw2: rep.sw2)
-                    Log.error( "Error reading tag: sw1 - \(binToHexRep(sw1)), sw2 - \(binToHexRep(sw2)) - reason: \(errorMsg)" )
-                    completed( nil, TagError.ResponseError( errorMsg ) )
+                    Log.error( "Error reading tag: sw1 - 0x\(binToHexRep(sw1)), sw2 - 0x\(binToHexRep(sw2))" )
+                    let tagError: TagError
+                    if (rep.sw1 == 0x63 && rep.sw2 == 0x00) {
+                        tagError = TagError.InvalidMRZKey
+                    } else {
+                        let errorMsg = self.decodeError(sw1: rep.sw1, sw2: rep.sw2)
+                        Log.error( "reason: \(errorMsg)" )
+                        tagError = TagError.ResponseError( errorMsg, sw1, sw2 )
+                    }
+                    completed( nil, tagError)
                 }
             }
         }
@@ -348,8 +374,7 @@ public class TagReader {
                    0x83:"Selected file invalidated",
                    0x84:"FCI not formatted according to ISO7816-4 section 5.1.5"],
             
-            0x63: [0x00:"No information given",
-                   0x81:"File filled up by the last write",
+            0x63: [0x81:"File filled up by the last write",
                    0x82:"Card Key not supported",
                    0x83:"Reader Key not supported",
                    0x84:"Plain transmission not supported",
@@ -404,7 +429,7 @@ public class TagReader {
             return errorMsg
         }
         
-        return "Unknown error - sw1: \(sw1), sw2: \(sw2)"
+        return "Unknown error - sw1: 0x\(binToHexRep(sw1)), sw2 - 0x\(binToHexRep(sw2)) "
     }
 }
 
