@@ -36,13 +36,13 @@ class MRZScannerViewController: UIViewController, QKMRZScannerViewDelegate {
         let mrzKey = passportDetails.getMRZKey()
         print(mrzKey)
         passportReader.readPassport(mrzKey: mrzKey) { (model, error) in
-            if error != nil { print(error) }
-            print(model?.dateOfBirth)
+            if error != nil { debugPrint(error) }
+            debugPrint(model?.firstName)
         }
     }
     func fillPassportDetails(with information: QKMRZScanResult) {
         passportDetails.expiryDate = getDateParts(date: information.expiryDate!)
-        passportDetails.passportNumber = information.documentNumber.replacingOccurrences(of: "U", with: "")
+        passportDetails.passportNumber = information.documentNumber
         passportDetails.dateOfBirth = getDateParts(date: information.birthDate!)
     }
     func getDateParts(date: Date) -> String {

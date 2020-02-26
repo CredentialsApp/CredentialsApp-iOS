@@ -105,8 +105,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UVf-on-vhT" customClass="QKMRZScannerView" customModule="QKMRZScanner">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place your passport inside the frame." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWL-0G-h2w">
+                                        <rect key="frame" x="166" y="76" width="42" height="21"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="lWL-0G-h2w" secondAttribute="trailing" constant="30" id="R4X-C1-mKj"/>
+                                    <constraint firstItem="lWL-0G-h2w" firstAttribute="top" secondItem="UVf-on-vhT" secondAttribute="top" constant="50" id="rv6-0W-tdg"/>
+                                    <constraint firstItem="lWL-0G-h2w" firstAttribute="leading" secondItem="UVf-on-vhT" secondAttribute="leading" constant="30" id="ujo-pj-KRH"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -121,6 +135,7 @@
                     <navigationItem key="navigationItem" id="NNe-nN-na6"/>
                     <connections>
                         <outlet property="mrzScannerView" destination="UVf-on-vhT" id="Qqy-PT-Cwq"/>
+                        <segue destination="6l6-lw-Yp9" kind="show" identifier="setAPincodeSegue" id="fvX-w8-G6H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61V-Gt-gyq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
