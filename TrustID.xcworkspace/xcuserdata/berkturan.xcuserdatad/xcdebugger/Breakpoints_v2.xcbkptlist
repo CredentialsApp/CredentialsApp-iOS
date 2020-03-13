@@ -110,8 +110,8 @@
             filePath = "Pods/NFCPassportReader/Sources/NFCPassportReader/PassportReader.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "invalidateSession(errorMessage:error:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "Pods/NFCPassportReader/Sources/NFCPassportReader/PassportReader.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "handleBAC(completed:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "Pods/NFCPassportReader/Sources/NFCPassportReader/PassportReader.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "readNextDataGroup(completedReadingGroups:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,9 +158,9 @@
             filePath = "TrustID/Controllers/MRZScanner/MRZScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "fillPassportDetails(with:)"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "mrzScannerView(_:didFind:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

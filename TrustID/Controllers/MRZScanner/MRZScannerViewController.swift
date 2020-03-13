@@ -31,20 +31,32 @@ class MRZScannerViewController: UIViewController, QKMRZScannerViewDelegate {
     }
     // MARK: - Function
     func mrzScannerView(_ mrzScannerView: QKMRZScannerView, didFind scanResult: QKMRZScanResult) {
-        
         fillPassportDetails(with: scanResult)
         let mrzKey = passportDetails.getMRZKey()
         print(mrzKey)
         passportReader.readPassport(mrzKey: mrzKey) { (model, error) in
-            if error != nil { debugPrint(error) }
-            debugPrint(model?.firstName)
+            if error != nil { debugPrint(error!) } else {
+                let dataProvider = DataProvider()
+                if dataProvider.isAvaiableToStore(key: "trustProfileImage", storageType: .userDefaults) {
+                    dataProvider.store(image: (model?.passportImage)!, forKey: "trustProfileImage", withStorageType: .userDefaults)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "goToHomeSegue", sender: nil)
+                    }
+                }else {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "goToHomeSegue", sender: nil)
+                    }
+                }
+            }
         }
     }
+    
     func fillPassportDetails(with information: QKMRZScanResult) {
         passportDetails.expiryDate = getDateParts(date: information.expiryDate!)
         passportDetails.passportNumber = information.documentNumber
         passportDetails.dateOfBirth = getDateParts(date: information.birthDate!)
     }
+    
     func getDateParts(date: Date) -> String {
         let calendar = NSCalendar.current
         let components = calendar.dateComponents([.day, .month, .year], from: date)

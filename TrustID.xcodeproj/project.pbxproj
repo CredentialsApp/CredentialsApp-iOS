@@ -22,6 +22,8 @@
 		908B0CA923BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CA823BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift */; };
 		908B0CAB23BCF7E800906FD1 /* CredentialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CAA23BCF7E800906FD1 /* CredentialService.swift */; };
 		908B0CAE23BCFB5F00906FD1 /* CredentialEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CAD23BCFB5F00906FD1 /* CredentialEnums.swift */; };
+		9092E716240670C700A3FC76 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9092E715240670C700A3FC76 /* DataProvider.swift */; };
+		90C216A72417031E005E9B2E /* TrustImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C216A62417031E005E9B2E /* TrustImageView.swift */; };
 		90C7377D23AAAEE200801C3E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7377C23AAAEE200801C3E /* User.swift */; };
 		90C7377F23AAAFB800801C3E /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7377E23AAAFB800801C3E /* UserService.swift */; };
 		90C7378223AAB57600801C3E /* PincodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7378123AAB57600801C3E /* PincodeViewController.swift */; };
@@ -63,6 +65,8 @@
 		908B0CA823BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewControllerConfigration.swift; sourceTree = "<group>"; };
 		908B0CAA23BCF7E800906FD1 /* CredentialService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialService.swift; sourceTree = "<group>"; };
 		908B0CAD23BCFB5F00906FD1 /* CredentialEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialEnums.swift; sourceTree = "<group>"; };
+		9092E715240670C700A3FC76 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		90C216A62417031E005E9B2E /* TrustImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustImageView.swift; sourceTree = "<group>"; };
 		90C7377C23AAAEE200801C3E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		90C7377E23AAAFB800801C3E /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		90C7378123AAB57600801C3E /* PincodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +215,22 @@
 			path = CredentialService;
 			sourceTree = "<group>";
 		};
+		9092E713240670B100A3FC76 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				9092E714240670B900A3FC76 /* DataProvider */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		9092E714240670B900A3FC76 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				9092E715240670C700A3FC76 /* DataProvider.swift */,
+			);
+			path = DataProvider;
+			sourceTree = "<group>";
+		};
 		90C7377B23AAAEA400801C3E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +344,7 @@
 			children = (
 				90F7DF9023D9B0AA00F75569 /* TrustButton.swift */,
 				90F7DF8F23D9B0AA00F75569 /* TrustTextField.swift */,
+				90C216A62417031E005E9B2E /* TrustImageView.swift */,
 			);
 			path = Designables;
 			sourceTree = "<group>";
@@ -331,6 +352,7 @@
 		90FD087023AA8D3A008A70D2 = {
 			isa = PBXGroup;
 			children = (
+				9092E713240670B100A3FC76 /* Providers */,
 				90FD087B23AA8D3A008A70D2 /* TrustID */,
 				90FD087A23AA8D3A008A70D2 /* Products */,
 				3A492126D900C60ACDD7555D /* Pods */,
@@ -498,6 +520,7 @@
 				90E0737B23BA721F00420E2E /* CredentialTableViewCell.swift in Sources */,
 				90FD087D23AA8D3A008A70D2 /* AppDelegate.swift in Sources */,
 				901A86BA23B187AF00DF1A9A /* STDIdentifier.swift in Sources */,
+				90C216A72417031E005E9B2E /* TrustImageView.swift in Sources */,
 				908B0CA923BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift in Sources */,
 				90F7DF9223D9B0AA00F75569 /* TrustButton.swift in Sources */,
 				90C7377D23AAAEE200801C3E /* User.swift in Sources */,
@@ -506,6 +529,7 @@
 				90FD087F23AA8D3A008A70D2 /* SceneDelegate.swift in Sources */,
 				901A86B223B17F2E00DF1A9A /* CryptoService.swift in Sources */,
 				901A86AE23B176B300DF1A9A /* AlertService.swift in Sources */,
+				9092E716240670C700A3FC76 /* DataProvider.swift in Sources */,
 				901A86C023B18B6E00DF1A9A /* CredentialsViewController.swift in Sources */,
 				90E0737423B5CDCC00420E2E /* BluetoothViewController.swift in Sources */,
 				901A86BD23B188E400DF1A9A /* IdentifierTableViewCell.swift in Sources */,
