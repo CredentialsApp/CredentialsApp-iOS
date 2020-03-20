@@ -9,54 +9,48 @@
 import UIKit
 import QKMRZScanner
 import NFCPassportReader
-
+import CryptoKit
 class MRZScannerViewController: UIViewController, QKMRZScannerViewDelegate {
     
     // MARK: - UI Elements
     @IBOutlet weak var mrzScannerView: QKMRZScannerView!
     
     // MARK: - properties
-    private var passportReader: PassportReader!
     private var passportDetails = PassportDetails()
+    var mrzDelegate: MRZDelegate?
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         mrzScannerView.delegate = self
-        passportReader = PassportReader()
         mrzScannerView.startScanning()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         mrzScannerView.stopScanning()
+        
     }
     // MARK: - Function
     func mrzScannerView(_ mrzScannerView: QKMRZScannerView, didFind scanResult: QKMRZScanResult) {
         fillPassportDetails(with: scanResult)
         let mrzKey = passportDetails.getMRZKey()
-        print(mrzKey)
-        passportReader.readPassport(mrzKey: mrzKey) { (model, error) in
-            if error != nil { debugPrint(error!) } else {
-                let dataProvider = DataProvider()
-                if dataProvider.isAvaiableToStore(key: "trustProfileImage", storageType: .userDefaults) {
-                    dataProvider.store(image: (model?.passportImage)!, forKey: "trustProfileImage", withStorageType: .userDefaults)
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "goToHomeSegue", sender: nil)
-                    }
-                }else {
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "goToHomeSegue", sender: nil)
-                    }
-                }
-            }
+        self.dismiss(animated: true) {
+            self.mrzDelegate?.passKey(with: mrzKey)
         }
     }
     
+    func bytesConvertToHexstring(byte : [UInt8]) -> String {
+        var string = ""
+        for val in byte {
+            //getBytes(&byte, range: NSMakeRange(i, 1))
+            string = string + String(format: "%02X", val)
+        }
+        return string
+    }
     func fillPassportDetails(with information: QKMRZScanResult) {
         passportDetails.expiryDate = getDateParts(date: information.expiryDate!)
         passportDetails.passportNumber = information.documentNumber
         passportDetails.dateOfBirth = getDateParts(date: information.birthDate!)
     }
-    
     func getDateParts(date: Date) -> String {
         let calendar = NSCalendar.current
         let components = calendar.dateComponents([.day, .month, .year], from: date)
@@ -77,3 +71,16 @@ class MRZScannerViewController: UIViewController, QKMRZScannerViewDelegate {
 
 }
 
+extension Digest {
+    var bytes: [UInt8] { Array(makeIterator()) }
+    var data: Data { Data(bytes) }
+    var hexStr: String {
+        bytes.map { String(format: "%02X", $0) }.joined()
+    }
+}
+
+extension MRZScannerViewController: MRZDelegate {
+    func passKey(with mrzKey: String) {
+        
+    }
+}

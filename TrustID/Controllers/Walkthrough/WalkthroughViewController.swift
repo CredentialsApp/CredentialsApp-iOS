@@ -67,7 +67,7 @@ class WalkthroughViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func getStartedButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "MRZScannerViewControllerSegue", sender: nil)
+        performSegue(withIdentifier: "CredentialsPageSegue", sender: nil)
     }
 }
 

@@ -22,8 +22,11 @@
 		908B0CA923BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CA823BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift */; };
 		908B0CAB23BCF7E800906FD1 /* CredentialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CAA23BCF7E800906FD1 /* CredentialService.swift */; };
 		908B0CAE23BCFB5F00906FD1 /* CredentialEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908B0CAD23BCFB5F00906FD1 /* CredentialEnums.swift */; };
+		9091A4612425224900C9BE4E /* MRZDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9091A4602425224900C9BE4E /* MRZDelegate.swift */; };
+		9091A4642425336800C9BE4E /* CredentialDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9091A4632425336800C9BE4E /* CredentialDetailsViewController.swift */; };
 		9092E716240670C700A3FC76 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9092E715240670C700A3FC76 /* DataProvider.swift */; };
 		90C216A72417031E005E9B2E /* TrustImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C216A62417031E005E9B2E /* TrustImageView.swift */; };
+		90C216AA2422B597005E9B2E /* AddPassportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C216A92422B597005E9B2E /* AddPassportViewController.swift */; };
 		90C7377D23AAAEE200801C3E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7377C23AAAEE200801C3E /* User.swift */; };
 		90C7377F23AAAFB800801C3E /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7377E23AAAFB800801C3E /* UserService.swift */; };
 		90C7378223AAB57600801C3E /* PincodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7378123AAB57600801C3E /* PincodeViewController.swift */; };
@@ -65,8 +68,11 @@
 		908B0CA823BCECDA00906FD1 /* BluetoothViewControllerConfigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewControllerConfigration.swift; sourceTree = "<group>"; };
 		908B0CAA23BCF7E800906FD1 /* CredentialService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialService.swift; sourceTree = "<group>"; };
 		908B0CAD23BCFB5F00906FD1 /* CredentialEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialEnums.swift; sourceTree = "<group>"; };
+		9091A4602425224900C9BE4E /* MRZDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRZDelegate.swift; sourceTree = "<group>"; };
+		9091A4632425336800C9BE4E /* CredentialDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialDetailsViewController.swift; sourceTree = "<group>"; };
 		9092E715240670C700A3FC76 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		90C216A62417031E005E9B2E /* TrustImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustImageView.swift; sourceTree = "<group>"; };
+		90C216A92422B597005E9B2E /* AddPassportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassportViewController.swift; sourceTree = "<group>"; };
 		90C7377C23AAAEE200801C3E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		90C7377E23AAAFB800801C3E /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		90C7378123AAB57600801C3E /* PincodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +221,14 @@
 			path = CredentialService;
 			sourceTree = "<group>";
 		};
+		9091A4622425335300C9BE4E /* Credential Details */ = {
+			isa = PBXGroup;
+			children = (
+				9091A4632425336800C9BE4E /* CredentialDetailsViewController.swift */,
+			);
+			path = "Credential Details";
+			sourceTree = "<group>";
+		};
 		9092E713240670B100A3FC76 /* Providers */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +243,14 @@
 				9092E715240670C700A3FC76 /* DataProvider.swift */,
 			);
 			path = DataProvider;
+			sourceTree = "<group>";
+		};
+		90C216A82422B57C005E9B2E /* AddPassport */ = {
+			isa = PBXGroup;
+			children = (
+				90C216A92422B597005E9B2E /* AddPassportViewController.swift */,
+			);
+			path = AddPassport;
 			sourceTree = "<group>";
 		};
 		90C7377B23AAAEA400801C3E /* Models */ = {
@@ -264,6 +286,7 @@
 				90FD087E23AA8D3A008A70D2 /* SceneDelegate.swift */,
 				90FD087C23AA8D3A008A70D2 /* AppDelegate.swift */,
 				90C7378323AAB6DE00801C3E /* UserDelegate.swift */,
+				9091A4602425224900C9BE4E /* MRZDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -280,6 +303,8 @@
 		90DB58C823AA98DD0013A84E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9091A4622425335300C9BE4E /* Credential Details */,
+				90C216A82422B57C005E9B2E /* AddPassport */,
 				907592EE23DEEBB800867B3D /* MRZScanner */,
 				90E0737223B5CDAF00420E2E /* BluetoothViewController */,
 				901A86BE23B18B5E00DF1A9A /* Credentials */,
@@ -352,7 +377,6 @@
 		90FD087023AA8D3A008A70D2 = {
 			isa = PBXGroup;
 			children = (
-				9092E713240670B100A3FC76 /* Providers */,
 				90FD087B23AA8D3A008A70D2 /* TrustID */,
 				90FD087A23AA8D3A008A70D2 /* Products */,
 				3A492126D900C60ACDD7555D /* Pods */,
@@ -372,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				90F7DF8723D9A9F700F75569 /* TrustID.entitlements */,
+				9092E713240670B100A3FC76 /* Providers */,
 				90F7DF8E23D9B09900F75569 /* Designables */,
 				90C7377B23AAAEA400801C3E /* Models */,
 				90DB58CA23AA99CA0013A84E /* Services */,
@@ -509,15 +534,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9091A4612425224900C9BE4E /* MRZDelegate.swift in Sources */,
 				908B0CAE23BCFB5F00906FD1 /* CredentialEnums.swift in Sources */,
 				9011DD0923AAA3480085D7BE /* SignUpViewController.swift in Sources */,
 				90C7378423AAB6DE00801C3E /* UserDelegate.swift in Sources */,
 				90E0737923B5DAE700420E2E /* Credential.swift in Sources */,
 				90FD088123AA8D3A008A70D2 /* WalkthroughViewController.swift in Sources */,
 				90C7377F23AAAFB800801C3E /* UserService.swift in Sources */,
+				9091A4642425336800C9BE4E /* CredentialDetailsViewController.swift in Sources */,
 				90C7378223AAB57600801C3E /* PincodeViewController.swift in Sources */,
 				901A86B823B1834200DF1A9A /* HomeViewController.swift in Sources */,
 				90E0737B23BA721F00420E2E /* CredentialTableViewCell.swift in Sources */,
+				90C216AA2422B597005E9B2E /* AddPassportViewController.swift in Sources */,
 				90FD087D23AA8D3A008A70D2 /* AppDelegate.swift in Sources */,
 				901A86BA23B187AF00DF1A9A /* STDIdentifier.swift in Sources */,
 				90C216A72417031E005E9B2E /* TrustImageView.swift in Sources */,
