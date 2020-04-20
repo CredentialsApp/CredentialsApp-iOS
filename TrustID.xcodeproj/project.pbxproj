@@ -283,8 +283,8 @@
 		90DB58C623AA98C00013A84E /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				90FD087E23AA8D3A008A70D2 /* SceneDelegate.swift */,
 				90FD087C23AA8D3A008A70D2 /* AppDelegate.swift */,
+				90FD087E23AA8D3A008A70D2 /* SceneDelegate.swift */,
 				90C7378323AAB6DE00801C3E /* UserDelegate.swift */,
 				9091A4602425224900C9BE4E /* MRZDelegate.swift */,
 			);

@@ -8,6 +8,7 @@
 
 import UIKit
 import NFCPassportReader
+import LocalAuthentication
 class AddPassportViewController: UIViewController {
     // MARK: - UI Elements
     @IBOutlet weak var scanPassportButton: UIButton!
@@ -36,6 +37,14 @@ class AddPassportViewController: UIViewController {
             destination.passportModel = model
         }
     }
+    func bytesConvertToHexstring(byte : [UInt8]) -> String {
+        var string = ""
+        for val in byte {
+            //getBytes(&byte, range: NSMakeRange(i, 1))
+            string = string + String(format: "%02X", val)
+        }
+        return string
+    }
     // MARK: - Actions
     @IBAction func scanPassportButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "ScannerViewSegue", sender: nil)
@@ -45,11 +54,41 @@ class AddPassportViewController: UIViewController {
             if error == nil {
                 self.credential = Credential(title: "Passport", description: model!.nationality, color: .blue)
                 self.model = model!
+                let dg1Hash = self.bytesConvertToHexstring(byte: (model?.getHashesForDatagroups(hashAlgorythm: "SHA256")[DataGroupId.DG1])!)
+                UserDefaults.standard.set(dg1Hash, forKey: "dg1Hash")
                 DispatchQueue.main.async {
-                    self.nfcScannerButton.setBackgroundImage(UIImage(named: "button_2_done"), for: .disabled)
-                    self.performSegue(withIdentifier: "HomeViewSegue", sender: nil)
+                    self.nfcScannerButton.isEnabled = false
+                    self.nfcScannerButton.setBackgroundImage(#imageLiteral(resourceName: "button2_done"), for: .disabled)
+                    self.facialAuthenticationButton.isEnabled = true
                 }
             }
+        }
+    }
+    @IBAction func facialAuthButtonTapped (_sender: UIButton) {
+        let context = LAContext()
+        var error: NSError?
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Identify yourself!"
+
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
+                [weak self] success, authenticationError in
+
+                DispatchQueue.main.async {
+                    if success {
+                        self!.facialAuthenticationButton.setBackgroundImage(UIImage(named: "button_3_done"), for: .disabled)
+                        self!.performSegue(withIdentifier: "HomeViewSegue", sender: nil)
+                    } else {
+                        let ac = UIAlertController(title: "Authentication failed", message: "You could not be verified; please try again.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        self!.present(ac, animated: true)
+                    }
+                }
+            }
+        } else {
+            let ac = UIAlertController(title: "Biometry unavailable", message: "Your device is not configured for biometric authentication.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true)
         }
     }
 }

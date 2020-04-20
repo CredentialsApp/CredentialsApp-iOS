@@ -22,6 +22,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        let credential = UserDefaults.standard.object(forKey: "credential") as? Credential
+        if credential != nil { credentials.append(credential!) }
     }
     // MARK: - Function
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

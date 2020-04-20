@@ -7,9 +7,9 @@ PODS:
   - QKMRZScanner (2.1.2):
     - QKMRZParser
     - SwiftyTesseract
-  - Sejima (1.4.9):
+  - Sejima (1.5.0):
     - Neumann
-  - SwiftyTesseract (2.2.2)
+  - SwiftyTesseract (3.0.0)
 
 DEPENDENCIES:
   - NFCPassportReader (from `https://github.com/AndyQ/NFCPassportReader.git`)
@@ -31,7 +31,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   NFCPassportReader:
-    :commit: e4f05e8ecea09176adc61b4b6cb1bed56fb67b9f
+    :commit: a05520e6e233ad9d3e7217c1b041c7b26a808a81
     :git: https://github.com/AndyQ/NFCPassportReader.git
 
 SPEC CHECKSUMS:
@@ -40,8 +40,8 @@ SPEC CHECKSUMS:
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
   QKMRZParser: 07921dbffa7e4064406113731bc0f1f5e6210bce
   QKMRZScanner: aaf269e766c4a51526034e7c4e695078b7dfeb0e
-  Sejima: 7ff1d1aac6632a7c96ce23c35bf0c6f2f3adeb11
-  SwiftyTesseract: a05d2c6771872f203a9ba65055cb2a8b6a385552
+  Sejima: 392535f758adc4708ae1d08b9238c8ee0ee816ed
+  SwiftyTesseract: acce13d69fb5c5b10e77a6df7fa76b16ac1e282b
 
 PODFILE CHECKSUM: 0aaf73d5a03c676d32e5c898ec446b42eadbfe59
 

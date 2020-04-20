@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y7C-EN-Ke1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y7C-EN-Ke1">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -604,6 +604,9 @@
                                     <constraint firstAttribute="height" constant="120" id="mey-MZ-bKw"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="button_3_up"/>
+                                <connections>
+                                    <action selector="facialAuthButtonTappedWith_sender:" destination="fhk-Tc-C6g" eventType="touchUpInside" id="wE5-hm-agq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -815,11 +818,14 @@
             <point key="canvasLocation" x="1879" y="137"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="4Gu-PI-ZLc"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="button_1_up" width="988.5" height="291.5"/>
         <image name="button_2_up" width="988.5" height="291.5"/>
         <image name="button_3_up" width="988.5" height="291.5"/>
-        <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="TrustBackground">
             <color red="0.99215686274509807" green="0.99215686274509807" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -830,7 +836,4 @@
             <color red="0.68199998140335083" green="0.68199998140335083" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="4Gu-PI-ZLc"/>
-    </inferredMetricsTieBreakers>
 </document>

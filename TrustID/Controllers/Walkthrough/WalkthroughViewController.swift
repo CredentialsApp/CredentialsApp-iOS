@@ -8,6 +8,9 @@
 
 import UIKit
 import NFCPassportReader
+import CryptorECC
+import CoreData
+
 class WalkthroughViewController: UIViewController {
 
     // MARK: - UI Elements
@@ -19,7 +22,11 @@ class WalkthroughViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        let p256PrivateKey = try? ECPrivateKey.make(for: .prime256v1)
+        let publicKey = try? p256PrivateKey?.extractPublicKey()
+        UserDefaults.standard.set(p256PrivateKey?.pemString, forKey: "p256PrivateKey")
+        let pemString = publicKey?.pemString
+        UserDefaults.standard.set(pemString, forKey: "publicKeyPem")
     }
     
     override func viewWillAppear(_ animated: Bool) {

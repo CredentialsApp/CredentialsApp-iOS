@@ -31,6 +31,7 @@ struct DataProvider {
             }
         }
     }
+    
     func retrieveImage(forKey key: String,
                                 inStorageType storageType: StorageType) -> UIImage? {
         switch storageType {
