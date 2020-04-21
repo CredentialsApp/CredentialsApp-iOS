@@ -101,7 +101,7 @@
             <objects>
                 <viewController id="957-0S-w5f" customClass="MRZScannerViewController" customModule="TrustID" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="31R-Q9-Rwm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UVf-on-vhT" customClass="QKMRZScannerView" customModule="QKMRZScanner">
@@ -819,6 +819,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="NSF-Uy-Za1"/>
         <segue reference="4Gu-PI-ZLc"/>
     </inferredMetricsTieBreakers>
     <resources>

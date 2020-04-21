@@ -21,6 +21,7 @@ class AddPassportViewController: UIViewController {
     private var passportDetails = PassportDetails()
     var credential = Credential(title: "", description: "", color: .none)
     var model = NFCPassportModel()
+    let dataProvider = DataProvider()
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,12 @@ class AddPassportViewController: UIViewController {
                 self.model = model!
                 let dg1Hash = self.bytesConvertToHexstring(byte: (model?.getHashesForDatagroups(hashAlgorythm: "SHA256")[DataGroupId.DG1])!)
                 UserDefaults.standard.set(dg1Hash, forKey: "dg1Hash")
+                self.dataProvider.store(image: (model?.passportImage)!, forKey: "passportImage", withStorageType: .userDefaults)
+                UserDefaults.standard.set(model?.firstName, forKey: "firstName")
+                UserDefaults.standard.set(model?.lastName, forKey: "lastName")
+                UserDefaults.standard.set(model?.dateOfBirth, forKey: "birthDate")
+                UserDefaults.standard.set(model?.documentNumber, forKey: "documentNumber")
+                UserDefaults.standard.set(model?.passportMRZ, forKey: "mrzKey")
                 DispatchQueue.main.async {
                     self.nfcScannerButton.isEnabled = false
                     self.nfcScannerButton.setBackgroundImage(#imageLiteral(resourceName: "button2_done"), for: .disabled)
@@ -76,6 +83,7 @@ class AddPassportViewController: UIViewController {
 
                 DispatchQueue.main.async {
                     if success {
+                        UserDefaults.standard.set(true, forKey: "isPassportAdded")
                         self!.facialAuthenticationButton.setBackgroundImage(UIImage(named: "button_3_done"), for: .disabled)
                         self!.performSegue(withIdentifier: "HomeViewSegue", sender: nil)
                     } else {

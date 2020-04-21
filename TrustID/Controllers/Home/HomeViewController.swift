@@ -25,6 +25,15 @@ class HomeViewController: UIViewController {
         let credential = UserDefaults.standard.object(forKey: "credential") as? Credential
         if credential != nil { credentials.append(credential!) }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        let firstName = UserDefaults.standard.object(forKey: "firstName") as? String
+        let lastName = UserDefaults.standard.object(forKey: "lastName") as? String
+        let birthDate = UserDefaults.standard.object(forKey: "birthDate") as? String
+        let documentNumber = UserDefaults.standard.object(forKey: "documentNumber") as? String
+        let mrzKey = UserDefaults.standard.object(forKey: "mrzKey") as? String
+        let passportImage = UserDefaults.standard.object(forKey: "passportImage") as? UIImage
+        
+    }
     // MARK: - Function
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? CredentialDetailsViewController {

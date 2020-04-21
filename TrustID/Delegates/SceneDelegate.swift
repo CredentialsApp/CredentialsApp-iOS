@@ -34,10 +34,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let hashSignature = try? parameters["signing_hash"]?.sign(with: privateKey).asn1.hashValue else { return }
         guard let dsSignature = try? dg1Hash.sign(with: privateKey).asn1.description else { return }
         
-        let buildedCallback = "\(callbackUrl)?verification_result=success&verification_document=passport&verification_scope=existence&DG1_hash=\(String(describing: dg1Hash.description))&DG1_hashing_algorithm=sha-256&DS_signature=MHcCAQEEIEM6ZKxdPGWwu2KGpYVvUIQFH6dAan1i+u81JmLV8M5GoAoGCCqGSM49\nAwEHoUQDQgAEf3SkckYENwcf2lJEvkBMlQOYgwlz3IZMpQ3AaBY1GqJA30LOYG8w\nLWLerci2lPRkHMvyMD3q8Ro0BpOAS15fXg==&DS_signature_algorithm=ECC&random_hash_signature=\(hashSignature)&random_hash_signing_algoritm=ECC&user_public_key=MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE3zlk7kkgZIPr9RY6V5hdAAsRZtP8\ne5SVJj3y6o/8+FVjxtLHUYEVzd3CecBzz3+h2eZHx9cwXXAKo7lnGiYTTQ"
-        let ac = UIAlertController(title: "Builded Callback", message: buildedCallback, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        self.window?.rootViewController?.present(ac, animated: true, completion: nil)
+        var buildedCallback = "\(callbackUrl)?verification_result=success&verification_document=passport&verification_scope=existence&DG1_hash=\(String(describing: dg1Hash.description))&DG1_hashing_algorithm=sha-256&DS_signature=MHcCAQEEIEM6ZKxdPGWwu2KGpYVvUIQFH6dAan1i+u81JmLV8M5GoAoGCCqGSM49\nAwEHoUQDQgAEf3SkckYENwcf2lJEvkBMlQOYgwlz3IZMpQ3AaBY1GqJA30LOYG8w\nLWLerci2lPRkHMvyMD3q8Ro0BpOAS15fXg==&DS_signature_algorithm=ECC&random_hash_signature=\(hashSignature)&random_hash_signing_algoritm=ECC&user_public_key=MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE3zlk7kkgZIPr9RY6V5hdAAsRZtP8\ne5SVJj3y6o/8+FVjxtLHUYEVzd3CecBzz3+h2eZHx9cwXXAKo7lnGiYTTQ"
+        let trimmed = buildedCallback.trimmingCharacters(in: .whitespacesAndNewlines)
+        let ac = UIAlertController(title: "Wants to access your", message: "Data group 1 hash\nDS digital signature\nDocument Signing Certificate (DSC)", preferredStyle: .actionSheet)
+        let alertAction = UIAlertAction(title: "Authorize", style: .default) { (action) in
+            if action.isEnabled {
+                guard let foo = URL(string: trimmed.replacingOccurrences(of: "\n", with: "")) else { return }
+                UIApplication.shared.openURL(foo)
+            }
+        }
+        ac.addAction(alertAction)
+        let cacheCheck = UserDefaults.standard.object(forKey: "isPassportAdded") as? Bool
+        if cacheCheck != nil && cacheCheck == true {
+            self.window?.rootViewController?.present(ac, animated: true, completion: nil)
+        }else {
+            let acc = UIAlertController(title: "Error", message: "You have not added any documents yet", preferredStyle: .alert)
+            let aa = UIAlertAction(title: "OK", style: .default, handler: nil)
+            acc.addAction(aa)
+            self.window?.rootViewController?.present(acc, animated: true, completion: nil)
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

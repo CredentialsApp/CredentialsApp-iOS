@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSFaceIDUsageDescription</key>
-	<string>TrustID uses FaceID to make facial auth</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -17,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -32,17 +30,19 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NFCReaderUsageDescription</key>
 	<string>Ready to use NFC</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>We need your permission to run Blueetooth on the background in order to connect to our Central. Don&apos;t worry it&apos;s low energy which means that consumptions is almost zero.</string>
+	<string>We need your permission to run Blueetooth on the background in order to connect to our Central. Don't worry it's low energy which means that consumptions is almost zero.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>We need your permission to run Blueetooth on the background in order to connect to our Central. Don&apos;t worry it&apos;s low energy which means that consumptions is almost zero.</string>
+	<string>We need your permission to run Blueetooth on the background in order to connect to our Central. Don't worry it's low energy which means that consumptions is almost zero.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>TrustID uses camera to detect mrz</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>TrustID uses FaceID to make facial auth</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
