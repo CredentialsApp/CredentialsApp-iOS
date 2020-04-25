@@ -25,6 +25,7 @@
 		9091A4612425224900C9BE4E /* MRZDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9091A4602425224900C9BE4E /* MRZDelegate.swift */; };
 		9091A4642425336800C9BE4E /* CredentialDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9091A4632425336800C9BE4E /* CredentialDetailsViewController.swift */; };
 		9092E716240670C700A3FC76 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9092E715240670C700A3FC76 /* DataProvider.swift */; };
+		90B1CBF42453BCA700C540DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90B1CBF32453BCA700C540DC /* GoogleService-Info.plist */; };
 		90C216A72417031E005E9B2E /* TrustImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C216A62417031E005E9B2E /* TrustImageView.swift */; };
 		90C216AA2422B597005E9B2E /* AddPassportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C216A92422B597005E9B2E /* AddPassportViewController.swift */; };
 		90C7377D23AAAEE200801C3E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C7377C23AAAEE200801C3E /* User.swift */; };
@@ -71,6 +72,7 @@
 		9091A4602425224900C9BE4E /* MRZDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRZDelegate.swift; sourceTree = "<group>"; };
 		9091A4632425336800C9BE4E /* CredentialDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialDetailsViewController.swift; sourceTree = "<group>"; };
 		9092E715240670C700A3FC76 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		90B1CBF32453BCA700C540DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		90C216A62417031E005E9B2E /* TrustImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustImageView.swift; sourceTree = "<group>"; };
 		90C216A92422B597005E9B2E /* AddPassportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassportViewController.swift; sourceTree = "<group>"; };
 		90C7377C23AAAEE200801C3E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				90DB58C723AA98D10013A84E /* Storyboards */,
 				90FD088523AA8D3C008A70D2 /* Assets.xcassets */,
 				90FD088A23AA8D3C008A70D2 /* Info.plist */,
+				90B1CBF32453BCA700C540DC /* GoogleService-Info.plist */,
 			);
 			path = TrustID;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 			files = (
 				90FD088923AA8D3C008A70D2 /* LaunchScreen.storyboard in Resources */,
 				90FD088623AA8D3C008A70D2 /* Assets.xcassets in Resources */,
+				90B1CBF42453BCA700C540DC /* GoogleService-Info.plist in Resources */,
 				90FD088423AA8D3A008A70D2 /* Main.storyboard in Resources */,
 				90DB58C523AA977D0013A84E /* Slide.xib in Resources */,
 			);
@@ -714,7 +718,7 @@
 				CODE_SIGN_ENTITLEMENTS = TrustID/TrustID.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = MV47TP9PRQ;
 				INFOPLIST_FILE = TrustID/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -738,7 +742,7 @@
 				CODE_SIGN_ENTITLEMENTS = TrustID/TrustID.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = MV47TP9PRQ;
 				INFOPLIST_FILE = TrustID/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

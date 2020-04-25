@@ -1,9 +1,12 @@
 ${PODS_ROOT}/Target Support Files/Pods-TrustID/Pods-TrustID-frameworks.sh
+${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
 ${BUILT_PRODUCTS_DIR}/NFCPassportReader/NFCPassportReader.framework
 ${BUILT_PRODUCTS_DIR}/Neumann/Neumann.framework
 ${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework
 ${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework.dSYM
+${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/QKMRZParser/QKMRZParser.framework
 ${BUILT_PRODUCTS_DIR}/QKMRZScanner/QKMRZScanner.framework
 ${BUILT_PRODUCTS_DIR}/Sejima/Sejima.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyTesseract/SwiftyTesseract.framework
+${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

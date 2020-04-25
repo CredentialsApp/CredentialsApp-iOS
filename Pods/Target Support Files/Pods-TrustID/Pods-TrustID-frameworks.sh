@@ -161,24 +161,30 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/NFCPassportReader/NFCPassportReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Neumann/Neumann.framework"
   install_framework "${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework"
   install_dsym "${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework.dSYM"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QKMRZParser/QKMRZParser.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QKMRZScanner/QKMRZScanner.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Sejima/Sejima.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyTesseract/SwiftyTesseract.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/NFCPassportReader/NFCPassportReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Neumann/Neumann.framework"
   install_framework "${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework"
   install_dsym "${PODS_ROOT}/OpenSSL-Universal/Frameworks/ios/OpenSSL.framework.dSYM"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QKMRZParser/QKMRZParser.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QKMRZScanner/QKMRZScanner.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Sejima/Sejima.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyTesseract/SwiftyTesseract.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
