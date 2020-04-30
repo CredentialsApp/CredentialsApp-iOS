@@ -9,6 +9,7 @@
 import UIKit
 import NFCPassportReader
 import LocalAuthentication
+import CryptoKit
 class AddPassportViewController: UIViewController {
     // MARK: - UI Elements
     @IBOutlet weak var scanPassportButton: UIButton!
@@ -33,8 +34,8 @@ class AddPassportViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MRZScannerViewController {
             destination.mrzDelegate = self
-        } else if let destination = segue.destination as? HomeViewController {
-            destination.credentials.append(self.credential)
+        }
+        if let destination = segue.destination as? HomeViewController {
             destination.passportModel = model
         }
     }
@@ -58,11 +59,25 @@ class AddPassportViewController: UIViewController {
                 let dg1Hash = self.bytesConvertToHexstring(byte: (model?.getHashesForDatagroups(hashAlgorythm: "SHA256")[DataGroupId.DG1])!)
                 UserDefaults.standard.set(dg1Hash, forKey: "dg1Hash")
                 self.dataProvider.store(image: (model?.passportImage)!, forKey: "passportImage", withStorageType: .userDefaults)
-                UserDefaults.standard.set(model?.firstName, forKey: "firstName")
-                UserDefaults.standard.set(model?.lastName, forKey: "lastName")
-                UserDefaults.standard.set(model?.dateOfBirth, forKey: "birthDate")
-                UserDefaults.standard.set(model?.documentNumber, forKey: "documentNumber")
-                UserDefaults.standard.set(model?.passportMRZ, forKey: "mrzKey")
+                var passportModelDictionary = [String: String]()
+                passportModelDictionary["firstName"] = model?.firstName
+                passportModelDictionary["lastName"] = model?.lastName
+                passportModelDictionary["birthDate"] = model?.dateOfBirth
+                passportModelDictionary["documentNumber"] = model?.documentNumber
+                passportModelDictionary["mrzKey"] = model?.passportMRZ
+                let encoder = JSONEncoder()
+                var newDictionary: [[String:String]] = []
+                newDictionary.append(passportModelDictionary)
+                let encodedDictionary = try! JSONEncoder().encode(newDictionary)
+                UserDefaults.standard.set(encodedDictionary, forKey: "encodedDictionary")
+                guard let storageDate = UserDefaults.standard.object(forKey: "encodedDictionary") else { return }
+                guard let encodedData = storageDate as? Data else {return}
+                if encodedData != nil {
+                    var decodedDictionary = try! JSONDecoder().decode([[String:String]].self, from: storageDate as! Data)
+                    decodedDictionary.append(passportModelDictionary)
+                    let encodedPassportModelDic = try! encoder.encode(decodedDictionary)
+                    UserDefaults.standard.set(encodedPassportModelDic, forKey: "encodedDictionary")
+                }
                 DispatchQueue.main.async {
                     self.nfcScannerButton.isEnabled = false
                     self.nfcScannerButton.setBackgroundImage(#imageLiteral(resourceName: "button2_done"), for: .disabled)

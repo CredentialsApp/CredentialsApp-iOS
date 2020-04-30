@@ -22,17 +22,25 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        let credential = UserDefaults.standard.object(forKey: "credential") as? Credential
-        if credential != nil { credentials.append(credential!) }
+        let modelArray = UserDefaults.standard.object(forKey: "modelArray") as? [NFCPassportModel]
+        if modelArray != nil {
+            self.passportModel = modelArray?.last! as! NFCPassportModel
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
-        let firstName = UserDefaults.standard.object(forKey: "firstName") as? String
-        let lastName = UserDefaults.standard.object(forKey: "lastName") as? String
-        let birthDate = UserDefaults.standard.object(forKey: "birthDate") as? String
-        let documentNumber = UserDefaults.standard.object(forKey: "documentNumber") as? String
-        let mrzKey = UserDefaults.standard.object(forKey: "mrzKey") as? String
-        let passportImage = UserDefaults.standard.object(forKey: "passportImage") as? UIImage
-        
+        let storageDate = UserDefaults.standard.object(forKey: "encodedDictionary")
+        guard let encodedData = storageDate as? Data else {return}
+        if encodedData != nil {
+            let decodedDic = try? JSONDecoder().decode([[String:String]].self, from: encodedData as! Data)
+            if decodedDic != nil {
+                for dictionary in decodedDic! {
+                    let firstName = dictionary["firstName"]!
+                    let lastName = dictionary["lastName"]!
+                    let credential = Credential(title: firstName, description: lastName, color: .blue)
+                    credentials.append(credential)
+                }
+            }
+        }
     }
     // MARK: - Function
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
