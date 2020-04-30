@@ -10,4 +10,5 @@ target 'TrustID' do
 	pod 'QKMRZScanner'
 	pod 'NFCPassportReader', git:'https://github.com/AndyQ/NFCPassportReader.git'
 	pod 'Firebase/Analytics'
+	pod 'Firebase/DynamicLinks'
 end
