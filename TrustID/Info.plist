@@ -22,10 +22,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.gatepay.trustiddevelopment</string>
+			<string>com.gatepay.trustidapp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>trustid</string>
+				<string>trustid.page.link</string>
 			</array>
 		</dict>
 	</array>

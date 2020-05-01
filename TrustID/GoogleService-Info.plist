@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>400603742846-9vr2jrpin35iq9cqk65jvtbpuoup6fkq.apps.googleusercontent.com</string>
+	<string>400603742846-6vt18g2nvqf7mvlsqkn38nob1h0ej4lk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.400603742846-9vr2jrpin35iq9cqk65jvtbpuoup6fkq</string>
+	<string>com.googleusercontent.apps.400603742846-6vt18g2nvqf7mvlsqkn38nob1h0ej4lk</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>400603742846-s46potis4q0sdrher3qa8ran01nroht3.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.gatepay.trustiddevelopment</string>
+	<string>com.gatepay.trustidapp</string>
 	<key>PROJECT_ID</key>
 	<string>trustid-6b9a7</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:400603742846:ios:bdfe6a2ea9143e2ed3ce2f</string>
+	<string>1:400603742846:ios:14ec72654272b360d3ce2f</string>
 	<key>DATABASE_URL</key>
 	<string>https://trustid-6b9a7.firebaseio.com</string>
 </dict>
