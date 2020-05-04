@@ -89,12 +89,12 @@
                         <outlet property="getStartedButton" destination="Mh4-2v-HrQ" id="LE9-0k-Avc"/>
                         <outlet property="pageControl" destination="aPQ-ss-aJH" id="v71-bZ-b8a"/>
                         <outlet property="scrollView" destination="McT-Lr-vfU" id="wke-Ck-1Ui"/>
-                        <segue destination="YsI-3b-K5b" kind="presentation" identifier="CredentialsPageSegue" modalPresentationStyle="fullScreen" id="ORX-s2-Zfv"/>
+                        <segue destination="tU4-dT-ujk" kind="show" identifier="CredentialsPageSegue" id="Udz-xB-BMb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.2" y="137.4384236453202"/>
+            <point key="canvasLocation" x="1846" y="137"/>
         </scene>
         <!--Scanner View Controller-->
         <scene sceneID="w4R-GB-bOX">
@@ -327,13 +327,13 @@
         <!--Credentials-->
         <scene sceneID="hhA-PN-a68">
             <objects>
-                <viewController id="tU4-dT-ujk" customClass="HomeViewController" customModule="TrustID" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tU4-dT-ujk" customClass="HomeViewController" customModule="TrustID" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y2u-D4-onj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MJl-Ti-RkP">
-                                <rect key="frame" x="0.0" y="165" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="209" width="375" height="603"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CredentialTableViewCell" rowHeight="100" id="4x1-4e-vjV" customClass="CredentialTableViewCell" customModule="TrustID" customModuleProvider="target">
@@ -368,9 +368,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" name="TrustBackground"/>
+                                            <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="TrustBackground"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="colorView" destination="2lF-65-VJU" id="k5k-Rr-abX"/>
                                             <outlet property="titleDescription" destination="HWb-wm-Dfg" id="zIt-8B-URk"/>
@@ -384,13 +385,13 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Credentials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ul-7E-gm3">
-                                <rect key="frame" x="15" y="79" width="295" height="36"/>
+                                <rect key="frame" x="15" y="123" width="295" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMk-BN-EnE">
-                                <rect key="frame" x="330" y="83" width="30" height="28.666666666666671"/>
+                                <rect key="frame" x="330" y="127.00000000000003" width="30" height="28.666666666666643"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="2Nd-Ek-wdv"/>
                                     <constraint firstAttribute="height" constant="30" id="awf-PU-hcd"/>
@@ -553,6 +554,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="nYH-lA-hKc"/>
                     <connections>
+                        <outlet property="dateOfBirthLabel" destination="7Kf-om-F1o" id="Bxy-t6-srK"/>
                         <outlet property="documentNumberLabel" destination="Exm-FB-KwV" id="RYk-fX-1YY"/>
                         <outlet property="firstNameLabel" destination="kSE-j0-sHb" id="Dei-dp-3Gd"/>
                         <outlet property="lastNameLabel" destination="FBD-Yy-9Lk" id="e6H-vZ-JaY"/>
@@ -569,19 +571,19 @@
             <objects>
                 <viewController id="fhk-Tc-C6g" customClass="AddPassportViewController" customModule="TrustID" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ro8-5F-qq4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Passport" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWK-tc-hGo">
-                                <rect key="frame" x="15" y="40" width="340" height="36"/>
+                                <rect key="frame" x="15" y="128" width="340" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9gx-16-hk1">
-                                <rect key="frame" x="20" y="111" width="335" height="120"/>
+                                <rect key="frame" x="20" y="199" width="335" height="105"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="rTH-nF-3tk"/>
+                                    <constraint firstAttribute="height" constant="105" id="rTH-nF-3tk"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="button_1_up"/>
                                 <connections>
@@ -589,9 +591,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnY-MS-fZb">
-                                <rect key="frame" x="20" y="266" width="335" height="120"/>
+                                <rect key="frame" x="20" y="339" width="335" height="105"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="4nZ-zo-EbY"/>
+                                    <constraint firstAttribute="height" constant="105" id="4nZ-zo-EbY"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="button_2_up"/>
                                 <connections>
@@ -599,9 +601,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfY-wE-WgL">
-                                <rect key="frame" x="20" y="421" width="335" height="120"/>
+                                <rect key="frame" x="20" y="479" width="335" height="105"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="mey-MZ-bKw"/>
+                                    <constraint firstAttribute="height" constant="105" id="mey-MZ-bKw"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="button_3_up"/>
                                 <connections>
@@ -778,7 +780,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Atb-8k-vXK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+            <point key="canvasLocation" x="935" y="137"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EhI-qn-cm0">
@@ -798,28 +800,9 @@
             </objects>
             <point key="canvasLocation" x="2678" y="-553"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="wOg-vv-awo">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YsI-3b-K5b" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="eQb-Oe-6N1"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WOs-sA-ixW">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="tU4-dT-ujk" kind="relationship" relationship="rootViewController" id="Ggx-Ao-uNj"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dG0-mo-AQ1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1879" y="137"/>
-        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4Gu-PI-ZLc"/>
+        <segue reference="Udz-xB-BMb"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="button_1_up" width="988.5" height="291.5"/>
@@ -827,7 +810,7 @@
         <image name="button_3_up" width="988.5" height="291.5"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="TrustBackground">
-            <color red="0.99215686274509807" green="0.99215686274509807" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.95294117647058818" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TrustTextField">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

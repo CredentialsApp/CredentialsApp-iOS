@@ -18,71 +18,75 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
-
-        if let userActivity = connectionOptions.userActivities.first {
+        
+    }
+    
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let walkthroughPageCheck = UserDefaults.standard.object(forKey: "isShowed") else { return }
+        if walkthroughPageCheck as! Bool {
             if let incomingURL = userActivity.webpageURL {
                 _ = DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL) { (dynamicLink, error) in
                     guard error == nil else { return }
                     if let dynamicLink = dynamicLink {
                     //your code for handling the dynamic link goes here
+                        let urlString = dynamicLink.url?.absoluteString
+                        let parsedHash = urlString?.replacingOccurrences(of: "https://trust-id.co/resolve/", with: "")
+                        let hexData = Data(fromHexEncodedString: parsedHash!)!
+                        let hexString = String(data: hexData, encoding: .isoLatin1)
+                        let wholeUrl = "https://trust-id.co/resolve/" + hexString!
+                        guard let url = URL(string: wholeUrl) else { return }
                         var parameters: [String: String] = [:]
-                        URLComponents(url: dynamicLink.url!, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
+                        URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
                             parameters[$0.name] = $0.value
                         }
-                        print(parameters)
-                    }
-                }
-            }
-        }
-    }
-    
-    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        guard let _ = (scene as? UIWindowScene) else { return }
-
-        if let incomingURL = userActivity.webpageURL {
-            _ = DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL) { (dynamicLink, error) in
-                guard error == nil else { return }
-                if let dynamicLink = dynamicLink {
-                //your code for handling the dynamic link goes here
-                    let urlString = dynamicLink.url?.absoluteString
-                    let parsedHash = urlString?.replacingOccurrences(of: "https://trust-id.co/resolve/", with: "")
-                    let hexData = Data(fromHexEncodedString: parsedHash!)!
-                    let hexString = String(data: hexData, encoding: .isoLatin1)
-                    let wholeUrl = "https://trust-id.co/resolve/" + hexString!
-                    guard let url = URL(string: wholeUrl) else { return }
-                    var parameters: [String: String] = [:]
-                    URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
-                        parameters[$0.name] = $0.value
-                    }
-                    
-                    let ac = UIAlertController(title: "Wants to access your", message: "Data group 1 hash\nDS digital signature\nDocument Signing Certificate (DSC)", preferredStyle: .actionSheet)
-                    let cacheCheck = UserDefaults.standard.object(forKey: "isPassportAdded") as? Bool
-                    if cacheCheck != nil && cacheCheck == true {
-                        guard let callbackUrl = parameters["callback_url"]?.description else { return }
-                        guard let p256PrivateKey = UserDefaults.standard.object(forKey: "p256PrivateKey") as? String else { return }
-                        guard let publicKey = UserDefaults.standard.object(forKey: "publicKeyPem") as? String else { return }
-                        guard let privateKey = try? ECPrivateKey(key: p256PrivateKey) else { return }
-                        guard let dg1Hash = UserDefaults.standard.object(forKey: "dg1Hash") as? String else { return }
-                        guard let hashSignature = try? parameters["signing_hash"]?.sign(with: privateKey).asn1.hashValue else { return }
-                        guard let dsSignature = try? dg1Hash.sign(with: privateKey).asn1.description else { return }
-                        
-                        var buildedCallback = "\(callbackUrl)?verification_result=success&verification_document=passport&verification_scope=existence&DG1_hash=\(String(describing: dg1Hash.description))&DG1_hashing_algorithm=sha-256&DS_signature=MHcCAQEEIEM6ZKxdPGWwu2KGpYVvUIQFH6dAan1i+u81JmLV8M5GoAoGCCqGSM49\nAwEHoUQDQgAEf3SkckYENwcf2lJEvkBMlQOYgwlz3IZMpQ3AaBY1GqJA30LOYG8w\nLWLerci2lPRkHMvyMD3q8Ro0BpOAS15fXg==&DS_signature_algorithm=ECC&random_hash_signature=\(hashSignature)&random_hash_signing_algoritm=ECC&user_public_key=MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE3zlk7kkgZIPr9RY6V5hdAAsRZtP8\ne5SVJj3y6o/8+FVjxtLHUYEVzd3CecBzz3+h2eZHx9cwXXAKo7lnGiYTTQ"
-                        let trimmed = buildedCallback.trimmingCharacters(in: .whitespacesAndNewlines)
-                        let alertAction = UIAlertAction(title: "Authorize", style: .default) { (action) in
-                            if action.isEnabled {
-                                guard let foo = URL(string: trimmed.replacingOccurrences(of: "\n", with: "")) else { return }
-                                UIApplication.shared.openURL(foo)
+                        var scopeString = parameters["scope"]
+                        var scopeElements = [String]()
+                        scopeString = scopeString?.trimmingCharacters(in: .whitespacesAndNewlines)
+                        var check = ""
+                        var index = 0
+                        var messageString = ""
+                        for character in scopeString! {
+                            index += 1
+                            if character != "," && index != scopeString!.count + 2  {
+                                check += character.description
+                            }else {
+                                scopeElements.append(check)
+                                messageString += check + "\n"
+                                check = ""
                             }
                         }
-                        ac.addAction(alertAction)
-                        self.resetRoot()
-                        self.window?.rootViewController?.present(ac, animated: true, completion: nil)
-                    }else {
-                        let acc = UIAlertController(title: "Error", message: "You have not added any documents yet", preferredStyle: .alert)
-                        let aa = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        acc.addAction(aa)
-                        self.resetRoot()
-                        self.window?.rootViewController?.present(acc, animated: true, completion: nil)
+                        messageString += check + "\n"
+                        scopeElements.append(check)
+                        let ac = UIAlertController(title: "bitHolla Wants to access your", message: NSAttributedStringHelper.createBulletedList(strings: scopeElements, font: .systemFont(ofSize: 16, weight: UIFont.Weight(rawValue: 700))).string, preferredStyle: .actionSheet)
+                        let cacheCheck = UserDefaults.standard.object(forKey: "isPassportAdded") as? Bool
+                        if cacheCheck != nil && cacheCheck == true {
+                            guard let callbackUrl = parameters["callback_url"]?.description else { return }
+                            guard let p256PrivateKey = UserDefaults.standard.object(forKey: "p256PrivateKey") as? String else { return }
+                            guard let privateKey = try? ECPrivateKey(key: p256PrivateKey) else { return }
+                            guard let dg1Hash = UserDefaults.standard.object(forKey: "dg1Hash") as? String else { return }
+                            guard let hashSignature = try? parameters["signing_hash"]?.sign(with: privateKey).asn1.hashValue else { return }
+                            let decodedDictionary = try! JSONDecoder().decode([[String:String]].self, from: UserDefaults.standard.object(forKey: "encodedDictionary") as! Data)
+                            let buildedCallback = "\(callbackUrl)resolve?verification_result=success&verification_document=passport&document_issuing_state=\(decodedDictionary[0]["issueState"]!)&scope_query_parameters=\(scopeString!)&scope_result_parameters=\(decodedDictionary[0]["firstName"]! + decodedDictionary[0]["lastName"]!),\(decodedDictionary[0]["issueState"]!),\(decodedDictionary[0]["gender"]!),\(decodedDictionary[0]["documentNumber"]!)&DG1_hash=\(String(describing: dg1Hash.description))&DG1_hashing_algorithm=sha-256&DS_signature=MHcCAQEEIEM6ZKxdPGWwu2KGpYVvUIQFH6dAan1i+u81JmLV8M5GoAoGCCqGSM49AwEHoUQDQgAEf3SkckYENwcf2lJEvkBMlQOYgwlz3IZMpQ3AaBY1GqJA30LOYG8wLWLerci2lPRkHMvyMD3q8Ro0BpOAS15fXg==&DS_signature_algorithm=ECC&random_hash_signature=\(hashSignature)&random_hash_signing_algoritm=ECC&user_public_key=MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE3zlk7kkgZIPr9RY6V5hdAAsRZtP8e5SVJj3y6o8+FVjxtLHUYEVzd3CecBzz3+h2eZHx9cwXXAKo7lnGiYTTQ"
+                            let trimmed = buildedCallback.trimmingCharacters(in: .whitespacesAndNewlines)
+                            let alertAction = UIAlertAction(title: "Authorize", style: .default) { (action) in
+                                if action.isEnabled {
+                                    guard let foo = URL(string: trimmed.replacingOccurrences(of: "\n", with: "")) else { return }
+                                    debugPrint("foo")
+                                    UIApplication.shared.openURL(foo)
+                                }
+                            }
+                            ac.addAction(alertAction)
+                            self.resetRoot()
+                            self.window?.rootViewController?.present(ac, animated: true, completion: nil)
+                        }else {
+                            let acc = UIAlertController(title: "Error", message: "You have not added any documents yet", preferredStyle: .alert)
+                            let aa = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                            acc.addAction(aa)
+                            self.resetRoot()
+                            self.window?.rootViewController?.present(acc, animated: true, completion: nil)
+                        }
                     }
                 }
             }
@@ -96,48 +100,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func resetRoot() {
-           guard let rootVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WalkthroughViewController") as? WalkthroughViewController else {
+           guard let rootVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController else {
                return
            }
            let navigationController = UINavigationController(rootViewController: rootVC)
 
            UIApplication.shared.windows.first?.rootViewController = navigationController
            UIApplication.shared.windows.first?.makeKeyAndVisible()
-    }
-    
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        guard let url = URLContexts.first?.url else { return }
-        var parameters: [String: String] = [:]
-        URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
-            parameters[$0.name] = $0.value
-        }
-        guard let callbackUrl = parameters["callback_url"]?.description else { return }
-        guard let p256PrivateKey = UserDefaults.standard.object(forKey: "p256PrivateKey") as? String else { return }
-        guard let publicKey = UserDefaults.standard.object(forKey: "publicKeyPem") as? String else { return }
-        guard let privateKey = try? ECPrivateKey(key: p256PrivateKey) else { return }
-        guard let dg1Hash = UserDefaults.standard.object(forKey: "dg1Hash") as? String else { return }
-        guard let hashSignature = try? parameters["signing_hash"]?.sign(with: privateKey).asn1.hashValue else { return }
-        guard let dsSignature = try? dg1Hash.sign(with: privateKey).asn1.description else { return }
-        
-        var buildedCallback = "\(callbackUrl)?verification_result=success&verification_document=passport&verification_scope=existence&DG1_hash=\(String(describing: dg1Hash.description))&DG1_hashing_algorithm=sha-256&DS_signature=MHcCAQEEIEM6ZKxdPGWwu2KGpYVvUIQFH6dAan1i+u81JmLV8M5GoAoGCCqGSM49\nAwEHoUQDQgAEf3SkckYENwcf2lJEvkBMlQOYgwlz3IZMpQ3AaBY1GqJA30LOYG8w\nLWLerci2lPRkHMvyMD3q8Ro0BpOAS15fXg==&DS_signature_algorithm=ECC&random_hash_signature=\(hashSignature)&random_hash_signing_algoritm=ECC&user_public_key=MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE3zlk7kkgZIPr9RY6V5hdAAsRZtP8\ne5SVJj3y6o/8+FVjxtLHUYEVzd3CecBzz3+h2eZHx9cwXXAKo7lnGiYTTQ"
-        let trimmed = buildedCallback.trimmingCharacters(in: .whitespacesAndNewlines)
-        let ac = UIAlertController(title: "Wants to access your", message: "Data group 1 hash\nDS digital signature\nDocument Signing Certificate (DSC)", preferredStyle: .actionSheet)
-        let alertAction = UIAlertAction(title: "Authorize", style: .default) { (action) in
-            if action.isEnabled {
-                guard let foo = URL(string: trimmed.replacingOccurrences(of: "\n", with: "")) else { return }
-                UIApplication.shared.openURL(foo)
-            }
-        }
-        ac.addAction(alertAction)
-        let cacheCheck = UserDefaults.standard.object(forKey: "isPassportAdded") as? Bool
-        if cacheCheck != nil && cacheCheck == true {
-            self.window?.rootViewController?.present(ac, animated: true, completion: nil)
-        }else {
-            let acc = UIAlertController(title: "Error", message: "You have not added any documents yet", preferredStyle: .alert)
-            let aa = UIAlertAction(title: "OK", style: .default, handler: nil)
-            acc.addAction(aa)
-            self.window?.rootViewController?.present(acc, animated: true, completion: nil)
-        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -208,4 +177,41 @@ extension Data {
     }
 }
 
+class NSAttributedStringHelper {
+    static func createBulletedList(strings: [String], font: UIFont? = nil) -> NSAttributedString {
 
+        let fullAttributedString = NSMutableAttributedString()
+        let attributesDictionary: [NSAttributedString.Key: Any]
+
+        if font != nil {
+            attributesDictionary = [NSAttributedString.Key.font: font!]
+        } else {
+            attributesDictionary = [NSAttributedString.Key: Any]()
+        }
+
+        for index in 0..<strings.count {
+            let bulletPoint: String = "\u{2022}"
+            var formattedString: String = "\(bulletPoint) \(strings[index])"
+
+            if index < strings.count - 1 {
+                formattedString = "\(formattedString)\n"
+            }
+
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
+            let paragraphStyle = NSAttributedStringHelper.createParagraphAttribute()
+   attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
+        fullAttributedString.append(attributedString)
+       }
+
+        return fullAttributedString
+    }
+
+    private static func createParagraphAttribute() -> NSParagraphStyle {
+        let paragraphStyle: NSMutableParagraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as! [NSTextTab.OptionKey : Any])]
+        paragraphStyle.defaultTabInterval = 15
+        paragraphStyle.firstLineHeadIndent = 0
+        paragraphStyle.headIndent = 11
+        return paragraphStyle
+    }
+}

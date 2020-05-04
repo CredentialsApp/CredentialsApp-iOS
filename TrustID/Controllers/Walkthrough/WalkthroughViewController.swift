@@ -27,6 +27,7 @@ class WalkthroughViewController: UIViewController {
         UserDefaults.standard.set(p256PrivateKey?.pemString, forKey: "p256PrivateKey")
         let pemString = publicKey?.pemString
         UserDefaults.standard.set(pemString, forKey: "publicKeyPem")
+        UserDefaults.standard.set(true, forKey: "isShowed")
     }
     
     override func viewWillAppear(_ animated: Bool) {

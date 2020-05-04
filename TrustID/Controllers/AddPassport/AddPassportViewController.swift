@@ -29,6 +29,7 @@ class AddPassportViewController: UIViewController {
         nfcScannerButton.isEnabled = false
         facialAuthenticationButton.isEnabled = false
         passportReader = PassportReader()
+        self.navigationController?.navigationBar.backgroundColor = .clear
     }
     // MARK: - Function
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,6 +66,8 @@ class AddPassportViewController: UIViewController {
                 passportModelDictionary["birthDate"] = model?.dateOfBirth
                 passportModelDictionary["documentNumber"] = model?.documentNumber
                 passportModelDictionary["mrzKey"] = model?.passportMRZ
+                passportModelDictionary["issueState"] = model?.nationality
+                passportModelDictionary["gender"] = model?.gender
                 let encoder = JSONEncoder()
                 var newDictionary: [[String:String]] = []
                 newDictionary.append(passportModelDictionary)
@@ -74,9 +77,11 @@ class AddPassportViewController: UIViewController {
                 guard let encodedData = storageDate as? Data else {return}
                 if encodedData != nil {
                     var decodedDictionary = try! JSONDecoder().decode([[String:String]].self, from: storageDate as! Data)
-                    decodedDictionary.append(passportModelDictionary)
-                    let encodedPassportModelDic = try! encoder.encode(decodedDictionary)
-                    UserDefaults.standard.set(encodedPassportModelDic, forKey: "encodedDictionary")
+                    if decodedDictionary.contains(passportModelDictionary) == false {
+                        decodedDictionary.append(passportModelDictionary)
+                        let encodedPassportModelDic = try! encoder.encode(decodedDictionary)
+                        UserDefaults.standard.set(encodedPassportModelDic, forKey: "encodedDictionary")
+                    }
                 }
                 DispatchQueue.main.async {
                     self.nfcScannerButton.isEnabled = false
