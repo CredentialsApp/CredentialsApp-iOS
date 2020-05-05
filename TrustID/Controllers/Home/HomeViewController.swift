@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.navigationController?.navigationBar.backgroundColor = .clear
     }
     override func viewWillAppear(_ animated: Bool) {

@@ -17,8 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
-        
+        guard let winScene = (scene as? UIWindowScene) else { return }
+        if UserDefaults.standard.object(forKey: "isShowed") as! Bool {
+            window = UIWindow(windowScene: winScene)
+            guard let rootVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController else {
+                return
+            }
+            window?.rootViewController = rootVC
+            window?.makeKeyAndVisible()
+        }
     }
     
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
@@ -78,13 +85,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                 }
                             }
                             ac.addAction(alertAction)
-                            self.resetRoot()
+                            
                             self.window?.rootViewController?.present(ac, animated: true, completion: nil)
                         }else {
                             let acc = UIAlertController(title: "Error", message: "You have not added any documents yet", preferredStyle: .alert)
                             let aa = UIAlertAction(title: "Ok", style: .default, handler: nil)
                             acc.addAction(aa)
-                            self.resetRoot()
+                            
                             self.window?.rootViewController?.present(acc, animated: true, completion: nil)
                         }
                     }
