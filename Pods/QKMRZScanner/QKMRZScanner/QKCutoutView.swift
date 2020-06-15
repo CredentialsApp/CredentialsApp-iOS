@@ -30,7 +30,7 @@ class QKCutoutView: UIView {
     fileprivate func drawRectangleCutout() {
         let maskLayer = CAShapeLayer()
         let path = CGMutablePath()
-        let cornerRadius = CGFloat(3)
+        let cornerRadius = CGFloat(7)
         
         path.addRoundedRect(in: cutoutRect, cornerWidth: cornerRadius, cornerHeight: cornerRadius)
         path.addRect(bounds)
@@ -60,7 +60,7 @@ class QKCutoutView: UIView {
             height = (width / documentFrameRatio)
         }
         else {
-            height = (bounds.height * 0.75) // Fill 75% of the height
+            height = (bounds.height * 0.70) // Fill 70% of the height
             width = (height * documentFrameRatio)
         }
         

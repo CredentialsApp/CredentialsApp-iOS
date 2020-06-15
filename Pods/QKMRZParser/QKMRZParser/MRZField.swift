@@ -26,6 +26,14 @@ struct MRZField {
     
     // MARK: Static
     static func isValueValid(_ value: String, checkDigit: String) -> Bool {
+        
+        print("iValueValid basla")
+        print("value")
+        print(value)
+        print("checkDigit")
+        print(checkDigit)
+        
+        
         guard let numericCheckDigit = Int(checkDigit) else {
             if checkDigit == "<" {
                 return value.trimmingFillers().isEmpty
@@ -58,7 +66,9 @@ struct MRZField {
             
             total += (charValue * weights[index % 3])
         }
-        
+        print("isValueValid bitir")
         return (total % 10 == numericCheckDigit)
+        
     }
+    
 }

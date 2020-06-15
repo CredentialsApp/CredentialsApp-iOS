@@ -12,7 +12,7 @@ class TD1 {
     fileprivate let finalCheckDigit: String
     let documentType: MRZField
     let countryCode: MRZField
-    let documentNumber: MRZField
+    var documentNumber: MRZField
     let optionalData: MRZField
     let birthDate: MRZField
     let sex: MRZField
@@ -24,11 +24,15 @@ class TD1 {
     fileprivate lazy var allCheckDigitsValid: Bool = {
         let compositedValue = [documentNumber, optionalData, birthDate, expiryDate, optionalData2].reduce("", { ($0 + $1.rawValue + ($1.checkDigit ?? "")) })
         let isCompositedValueValid = MRZField.isValueValid(compositedValue, checkDigit: finalCheckDigit)
+        
         return (documentNumber.isValid! && birthDate.isValid! && expiryDate.isValid! && isCompositedValueValid)
     }()
     
     lazy var result: QKMRZResult = {
         let (surnames, givenNames) = names.value as! (String, String)
+        
+        
+        
         
         return QKMRZResult(
             documentType: documentType.value as! String,
@@ -56,7 +60,9 @@ class TD1 {
         
         documentType = formatter.field(.documentType, from: firstLine, at: 0, length: 2)
         countryCode = formatter.field(.countryCode, from: firstLine, at: 2, length: 3)
+
         documentNumber = formatter.field(.documentNumber, from: firstLine, at: 5, length: 9, checkDigitFollows: true)
+
         optionalData = formatter.field(.optionalData, from: firstLine, at: 15, length: 15)
         
         birthDate = formatter.field(.birthDate, from: secondLine, at: 0, length: 6, checkDigitFollows: true)

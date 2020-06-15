@@ -20,14 +20,21 @@ public class QKMRZParser {
     
     // MARK: Parsing
     public func parse(mrzLines: [String]) -> QKMRZResult? {
+        
+        print("mrzLines")
+         print(mrzLines)
+        
         let mrzFormat = self.mrzFormat(from: mrzLines)
         
         switch mrzFormat {
         case .td1:
+
             return TD1(from: mrzLines, using: formatter).result
         case .td2:
+
             return TD2(from: mrzLines, using: formatter).result
         case .td3:
+
             return TD3(from: mrzLines, using: formatter).result
         case .invalid:
             return nil

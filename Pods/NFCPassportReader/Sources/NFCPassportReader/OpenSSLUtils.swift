@@ -138,6 +138,7 @@ class OpenSSLUtils {
     /// - Parameter x509Cert: The X509 certificate (in PEM format) to verify
     /// - Parameter CAFile: The URL path of a file containing the list of certificates used to try to discover and build a trust chain
     /// - Returns: either the X509 issue signing certificate that was used to sign the passed in X509 certificate or an error
+    
     @available(iOS 13, *)
     static func verifyTrustAndGetIssuerCertificate( x509 : X509Wrapper, CAFile : URL ) -> Result<X509Wrapper, OpenSSLError> {
 
@@ -189,7 +190,7 @@ class OpenSSLUtils {
         }
         return .failure(OpenSSLError.UnableToVerifyX509CertificateForSOD("Unable to get issuer certificate - not found"))
     }
-    
+
     
     /// Extracts the contents of a BIO object and returns it as a String
     /// - Parameter bio: a Pointer to a BIO buffer

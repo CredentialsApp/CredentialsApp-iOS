@@ -7,6 +7,18 @@
 
 import UIKit
 
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+        return map { String(format: format, $0) }.joined()
+    }
+}
+
 @available(iOS 13, *)
 public struct DataGroupHash {
     public var id: String
@@ -14,6 +26,7 @@ public struct DataGroupHash {
     public var computedHash : String
     public var match : Bool
 }
+
 
 @available(iOS 13, *)
 public class NFCPassportModel {
@@ -27,6 +40,12 @@ public class NFCPassportModel {
     public private(set) lazy var dateOfBirth : String = { return passportDataElements?["5F57"] ?? "?" }()
     public private(set) lazy var gender : String = { return passportDataElements?["5F35"] ?? "?" }()
     public private(set) lazy var nationality : String = { return passportDataElements?["5F2C"] ?? "?" }()
+    public private(set) lazy var EFSODHashAlgo : String = "ANAN"
+    public private(set) lazy var EFSODsignedData : String = ""
+    
+    
+    
+    
 
     public private(set) lazy var lastName : String = {
         let names = (passportDataElements?["5B"] ?? "?").components(separatedBy: "<<")
@@ -71,6 +90,7 @@ public class NFCPassportModel {
     public private(set) var dataGroupsRead : [DataGroupId:DataGroup] = [:]
     public private(set) var dataGroupHashes = [DataGroupId: DataGroupHash]()
 
+    public private(set) var asn1parseddataxxdd : String = ""
     public private(set) var passportCorrectlySigned : Bool = false
     public private(set) var documentSigningCertificateVerified : Bool = false
     public private(set) var passportDataNotTampered : Bool = false
@@ -131,7 +151,10 @@ public class NFCPassportModel {
                 ret[key] = calcSHA1Hash(value.body)
             } else if hashAlgorythm == "SHA1" {
                 ret[key] = calcSHA1Hash(value.body)
+            } else if hashAlgorythm == "SHA512" {
+                ret[key] = calcSHA512Hash(value.body)
             }
+            
         }
         
         return ret
@@ -191,6 +214,20 @@ public class NFCPassportModel {
         
         return revoked
     }
+    
+    public func extractDSCertificate() throws -> X509Wrapper {
+
+        guard let sod = getDataGroup(.SOD) else {
+            throw PassiveAuthenticationError.SODMissing("No SOD found" )
+        }
+
+        let data = Data(sod.body)
+        let cert = try OpenSSLUtils.getX509CertificatesFromPKCS7( pkcs7Der: data ).first!
+        self.certificateSigningGroups[.documentSigningCertificate] = cert
+        
+        return documentSigningCertificate!
+
+    }
 
     private func validateAndExtractSigningCertificates( masterListURL: URL ) throws {
         self.passportCorrectlySigned = false
@@ -215,8 +252,22 @@ public class NFCPassportModel {
         self.passportCorrectlySigned = true
 
     }
+    
+    
+    public func yuumi1()  {
+         let sod = getDataGroup(.SOD)
 
-    private func ensureReadDataNotBeenTamperedWith( ) throws  {
+        // Get SOD Content and verify that its correctly signed by the Document Signing Certificate
+        let data = Data(sod!.body)
+        var signedData : Data
+        
+       signedData = try! OpenSSLUtils.verifyAndGetSignedDataFromPKCS7(pkcs7Der: data)
+                
+        let asn1Data = try! OpenSSLUtils.ASN1Parse( data: signedData )
+        asn1parseddataxxdd = asn1Data
+    }
+
+    public func ensureReadDataNotBeenTamperedWith( ) throws  {
         guard let sod = getDataGroup(.SOD) else {
             throw PassiveAuthenticationError.SODMissing("No SOD found" )
         }
@@ -235,7 +286,13 @@ public class NFCPassportModel {
         // Now Verify passport data by comparing compare Hashes in SOD against
         // computed hashes to ensure data not been tampered with
         passportDataNotTampered = false
+        
+        
+        EFSODsignedData = signedData.hexEncodedString()
+        
         let asn1Data = try OpenSSLUtils.ASN1Parse( data: signedData )
+        
+        
         let (sodHashAlgorythm, sodHashes) = try parseSODSignatureContent( asn1Data )
         
         var errors : String = ""
@@ -269,6 +326,146 @@ public class NFCPassportModel {
     }
     
     
+    
+    public func parseSignedDataHash() throws -> String{
+        
+        var return_str = ""
+        
+        
+        guard let sod = getDataGroup(.SOD) else {
+            throw PassiveAuthenticationError.SODMissing("No SOD found" )
+        }
+
+        // Get SOD Content and verify that its correctly signed by the Document Signing Certificate
+        let data = Data(sod.body)
+                
+        // Now Verify passport data by comparing compare Hashes in SOD against
+        // computed hashes to ensure data not been tampered with
+        passportDataNotTampered = false
+        
+        
+        let asn1Data = try OpenSSLUtils.ASN1Parse( data: data )
+
+        let lines = asn1Data.components(separatedBy: "\n")
+        
+        for line in lines {
+            if line.contains( "d=8" ) && line.contains( "OCTET STRING" ) {
+                
+                if let range = line.range(of: "[HEX DUMP]:") {
+                    return_str = String(line[range.upperBound..<line.endIndex])
+                }
+                
+            }
+        }
+        
+        return return_str
+    }
+    
+    
+    
+    public func parseSignedDataSignature() throws -> String{
+        
+        var return_str = ""
+        
+        guard let sod = getDataGroup(.SOD) else {
+            throw PassiveAuthenticationError.SODMissing("No SOD found" )
+        }
+
+        let data = Data(sod.body)
+        
+        let asn1Data = try OpenSSLUtils.ASN1Parse( data: data )
+
+        let lines = asn1Data.components(separatedBy: "\n")
+        
+        for line in lines {
+            if line.contains( "d=5" ) && line.contains( "OCTET STRING" ) {
+                
+                if let range = line.range(of: "[HEX DUMP]:") {
+                    return_str = String(line[range.upperBound..<line.endIndex])
+                }
+                
+            }
+        }
+        
+        return return_str
+    }
+    
+    
+    
+    public func parseSignedDataSignatureAlgo() throws -> String{
+        
+        var return_str = ""
+        
+        
+        guard let sod = getDataGroup(.SOD) else {
+            throw PassiveAuthenticationError.SODMissing("No SOD found" )
+        }
+
+        let data = Data(sod.body)
+
+        let asn1Data = try OpenSSLUtils.ASN1Parse( data: data )
+
+        let lines = asn1Data.components(separatedBy: "\n")
+        
+        for line in lines {
+            if line.contains( "d=6" ) && line.contains( "OBJECT" ) {
+                
+                if let range = line.range(of: "OBJECT            :") {
+                    return_str = String(line[range.upperBound..<line.endIndex])
+                }
+                
+            }
+        }
+        
+        return return_str
+    }
+    
+    
+    
+    /*
+    public func parseDGdigestAlgo() throws -> String{
+        
+        var return_str = ""
+        
+        
+        guard let sod = getDataGroup(.SOD) else {
+            throw PassiveAuthenticationError.SODMissing("No SOD found" )
+        }
+
+        // Get SOD Content and verify that its correctly signed by the Document Signing Certificate
+        let data = Data(sod.body)
+        
+        var signedData : Data
+
+        do {
+            signedData = try OpenSSLUtils.verifyAndGetSignedDataFromPKCS7(pkcs7Der: data)
+        } catch {
+            signedData = try OpenSSLUtils.extractSignedDataNoVerificationFromPKCS7( pkcs7Der : data)
+        }
+   
+        let asn1Data = try OpenSSLUtils.ASN1Parse( data: signedData )
+
+        let lines = asn1Data.components(separatedBy: "\n")
+        
+        for line in lines {
+        if line.contains( "d=2" ) && line.contains( "OBJECT" ) {
+            if line.contains( "sha1" ) {
+                return_str = "SHA1"
+            } else if line.contains( "sha256" ) {
+                return_str = "SHA256"
+            } else if line.contains( "sha384" ) {
+                return_str = "SHA384"
+            }else if line.contains( "sha512" ) {
+                return_str = "SHA512"
+            }
+        }
+        }
+        
+        return return_str
+    }
+    */
+    
+    
     /// Parses an text ASN1 structure, and extracts the Hash Algorythm and Hashes contained from the Octect strings
     /// - Parameter content: the text ASN1 stucure format
     /// - Returns: The Has Algorythm used - either SHA1 or SHA256, and a dictionary of hashes for the datagroups (currently only DG1 and DG2 are handled)
@@ -289,6 +486,8 @@ public class NFCPassportModel {
                     sodHashAlgo = "SHA256"
                 } else if line.contains( "sha384" ) {
                     sodHashAlgo = "SHA384"
+                }else if line.contains( "sha512" ) {
+                    sodHashAlgo = "SHA512"
                 }
             } else if line.contains("d=3" ) && line.contains( "INTEGER" ) {
                 if let range = line.range(of: "INTEGER") {
@@ -307,7 +506,10 @@ public class NFCPassportModel {
                     }
                 }
             }
+            
         }
+        
+        EFSODHashAlgo = sodHashAlgo
         
         if sodHashAlgo == "" {
             throw PassiveAuthenticationError.UnableToParseSODHashes("Unable to find hash algorythm used" )
@@ -315,6 +517,8 @@ public class NFCPassportModel {
         if sodHashes.count == 0 {
             throw PassiveAuthenticationError.UnableToParseSODHashes("Unable to extract hashes" )
         }
+        
+        
 
         Log.debug( "Parse - Using Algo - \(sodHashAlgo)" )
         Log.debug( "      - Hashes     - \(sodHashes)" )

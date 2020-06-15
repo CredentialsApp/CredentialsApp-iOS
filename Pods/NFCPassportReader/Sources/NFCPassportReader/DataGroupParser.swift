@@ -96,6 +96,10 @@ public class DataGroup {
             ret = calcSHA256Hash(self.data)
         } else if hashAlgorythm == "SHA1" {
             ret = calcSHA1Hash(self.data)
+        } else if hashAlgorythm == "SHA512" {
+            ret = calcSHA512Hash(self.data)
+        } else if hashAlgorythm == "SHA384" {
+            ret = calcSHA384Hash(self.data)
         }
         
         return ret

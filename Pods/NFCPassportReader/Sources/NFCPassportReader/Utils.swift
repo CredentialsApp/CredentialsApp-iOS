@@ -295,4 +295,16 @@ func calcSHA384Hash( _ data: [UInt8] ) -> [UInt8] {
     fatalError("Couldn't import CryptoKit")
     #endif
 }
+@available(iOS 13, *)
+func calcSHA512Hash( _ data: [UInt8] ) -> [UInt8] {
+    #if canImport(CryptoKit)
+    var sha512 = SHA512()
+    sha512.update(data: data)
+    let hash = sha512.finalize()
+    
+    return Array(hash)
+    #else
+    fatalError("Couldn't import CryptoKit")
+    #endif
+}
 

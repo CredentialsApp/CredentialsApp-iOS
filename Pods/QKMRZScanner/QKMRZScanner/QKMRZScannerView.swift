@@ -129,7 +129,7 @@ public class QKMRZScannerView: UIView {
     
     fileprivate func enlargedDocumentImage(from cgImage: CGImage) -> UIImage {
         var croppingRect = cutoutRect(for: cgImage)
-        let margin = (0.05 * croppingRect.height) // 5% of the height
+        let margin = (0.01 * croppingRect.height) // 10% of the height
         croppingRect = CGRect(x: (croppingRect.minX - margin), y: (croppingRect.minY - margin), width: croppingRect.width + (margin * 2), height: croppingRect.height + (margin * 2))
         return UIImage(cgImage: cgImage.cropping(to: croppingRect)!)
     }
@@ -249,6 +249,7 @@ public class QKMRZScannerView: UIView {
 // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
 extension QKMRZScannerView: AVCaptureVideoDataOutputSampleBufferDelegate {
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+
         guard let cgImage = CMSampleBufferGetImageBuffer(sampleBuffer)?.cgImage else {
             return
         }
@@ -274,14 +275,16 @@ extension QKMRZScannerView: AVCaptureVideoDataOutputSampleBufferDelegate {
             guard mrzRegionRect.height <= (imageHeight * 0.4) else { // Avoid processing the full image (can occur if there is a long text in the header)
                 return
             }
-            
             if let mrzTextImage = documentImage.cropping(to: mrzRegionRect) {
+                
                 if let mrzResult = self.mrz(from: mrzTextImage), mrzResult.allCheckDigitsValid {
+
                     self.stopScanning()
                     
                     DispatchQueue.main.async {
                         let enlargedDocumentImage = self.enlargedDocumentImage(from: cgImage)
                         let scanResult = QKMRZScanResult(mrzResult: mrzResult, documentImage: enlargedDocumentImage)
+
                         self.delegate?.mrzScannerView(self, didFind: scanResult)
                         if self.vibrateOnResult {
                             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
